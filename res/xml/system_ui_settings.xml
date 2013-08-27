@@ -45,11 +45,16 @@
         android:fragment="com.android.settings.axxion.ProgressBar"
         android:title="@string/progressbar_title" />
         
-     <ListPreference
-        android:key="screen_animation_style"
-        android:title="@string/screen_animation_style_title"
-        android:entries="@array/screen_animation_style_entries"
-        android:entryValues="@array/screen_animation_style_values" />
+    <PreferenceScreen
+        android:id="@+id/animations"
+        android:title="@string/title_animation_controls"
+        android:summary="@string/header_summary_animation"
+        android:fragment="com.android.settings.cyanogenmod.fragments.AnimationControls" />
+
+    <PreferenceScreen
+        android:key="listview"
+        android:fragment="com.android.settings.cyanogenmod.Listview"
+        android:title="@string/listview_category" />
     
     </PreferenceCategory>
 
