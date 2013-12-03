@@ -28,6 +28,12 @@
             android:title="@string/screen_security_category"
             android:summary="@string/screen_security_summary">
         </PreferenceScreen>
+        
+      
+        <PreferenceScreen
+            android:key="keyguard_style"
+            android:fragment="com.android.settings.axxion.LockscreenStyle"
+            android:title="@string/lockscreen_style_title"/>
 
         <ListPreference
             android:key="lockscreen_battery_status"
