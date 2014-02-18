@@ -1,7 +1,20 @@
+/* Copyright (C) 2013-2014 Dokdo Project - Gwon Hyeok
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.android.settings.axxion;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
@@ -10,21 +23,15 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
 import com.android.settings.R;
 
-import android.provider.Settings;
-
-public class SeekBarPreference extends Preference
-        implements OnSeekBarChangeListener {
-
-    public static int maximum = 100;
-    public static int interval = 5;
+public class SeekBarPreference extends Preference implements OnSeekBarChangeListener {
 
     private String property;
 
-    private TextView monitorBox;
-    private SeekBar bar;
+    private static final String ANDROIDNS = "http://schemas.android.com/apk/res/android";
+    private static final String SETTINGS = "http://schemas.android.com/apk/res/com.android.settings";
+    private static final int DEFAULT_VALUE = 50;
 
     int defaultValue = 60;
     int mSetDefault = -1;
@@ -39,26 +46,9 @@ public class SeekBarPreference extends Preference
         super(context, attrs);
     }
 
-    @Override
-    protected View onCreateView(ViewGroup parent) {
-
-        View layout = View.inflate(getContext(), R.layout.slider_preference, null);
-
-        monitorBox = (TextView) layout.findViewById(R.id.monitor_box);
-        bar = (SeekBar) layout.findViewById(R.id.seek_bar);
-        int progress;
-        try{
-            progress = (int) (Settings.System.getFloat(
-                    getContext().getContentResolver(), property) * 100);
-        } catch (Exception e) {
-            progress = defaultValue;
-        }
-        bar.setOnSeekBarChangeListener(this);
-        bar.setProgress(progress);
-        if (!mDisablePercentageValue) {
-            monitorBox.setText(progress + "%");
-        }
-        return layout;
+    public SeekBarPreference(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        initPreference(context, attrs);
     }
 
     public void setInitValue(int progress) {
@@ -71,45 +61,63 @@ public class SeekBarPreference extends Preference
         }
     }
 
-    @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
-        // TODO Auto-generated method stub
-        return super.onGetDefaultValue(a, index);
+    private String getAttributeStringValue(AttributeSet attrs, String namespace, String name, String defaultValue) {
+        String value = attrs.getAttributeValue(namespace, name);
+        if(value == null)
+            value = defaultValue;
+
+        return value;
     }
 
     @Override
-    public void setOnPreferenceChangeListener(
-                OnPreferenceChangeListener onPreferenceChangeListener) {
-        changer = onPreferenceChangeListener;
-        super.setOnPreferenceChangeListener(onPreferenceChangeListener);
+    public void onDependencyChanged(Preference dependency, boolean disableDependent) {
+        super.onDependencyChanged(dependency, disableDependent);
+        this.setShouldDisableView(true);
+        if (mTitle != null)
+            mTitle.setEnabled(!disableDependent);
+        if (mSeekBar != null)
+            mSeekBar.setEnabled(!disableDependent);
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    protected View onCreateView(ViewGroup parent){
+        RelativeLayout layout =  null;
+        try {
+            LayoutInflater mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            layout = (RelativeLayout)mInflater.inflate(R.layout.seek_bar_preference, parent, false);
+            mTitle = (TextView) layout.findViewById(android.R.id.title);
+        }
+        catch(Exception e)
+        {
+            Log.e(TAG, "Error creating seek bar preference", e);
+        }
+        return layout;
+    }
 
-        progress = Math.round(((float) progress) / interval) * interval;
-        seekBar.setProgress(progress);
+    @Override
+    public void onBindView(View view) {
+        super.onBindView(view);
+        try
+        {
+            // move our seekbar to the new view we've been given
+            ViewParent oldContainer = mSeekBar.getParent();
+            ViewGroup newContainer = (ViewGroup) view.findViewById(R.id.seekBarPrefBarContainer);
 
-        if (progress == 0 && mZeroDefault) {
-            monitorBox.setText(R.string.default_string);
-        } else if (!mDisableText) {
-            if (mIsMilliSeconds) {
-                monitorBox.setText(progress + " ms");
-            } else if (!mDisablePercentageValue) {
-                monitorBox.setText(progress + "%");
+            if (oldContainer != newContainer) {
+                // remove the seekbar from the old view
+                if (oldContainer != null) {
+                    ((ViewGroup) oldContainer).removeView(mSeekBar);
+                }
+                // remove the existing seekbar (there may not be one) and add ours
+                newContainer.removeAllViews();
+                newContainer.addView(mSeekBar, ViewGroup.LayoutParams.FILL_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         }
-        changer.onPreferenceChange(this, Integer.toString(progress));
-    }
-
-    public void setValue(int progress){
-        if (bar!=null) {
-            bar.setProgress(progress);
-            if (!mDisablePercentageValue) {
-                monitorBox.setText(progress + "%");
-            }
-            changer.onPreferenceChange(this, Integer.toString(progress));
+        catch(Exception ex) {
+            Log.e(TAG, "Error binding view: " + ex.toString());
         }
+        updateView(view);
     }
 
     public void disablePercentageValue(boolean disable) {
