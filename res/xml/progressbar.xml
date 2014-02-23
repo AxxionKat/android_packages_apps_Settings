@@ -105,6 +105,8 @@
         <Preference android:key="gnow_preset"
             android:title="@string/progressbar_gnow" />
 
+        <Preference android:key="codejune_preset"
+            android:title="@string/progressbar_codejune" />
     </PreferenceCategory>
 
 </PreferenceScreen>
