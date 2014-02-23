@@ -350,4 +350,9 @@
     <string name="progressbar_linear">Linear</string>
     <string name="progressbar_acceleratedecelerate">AccelerateDecelerate</string>
     <string name="progressbar_decelerate">Decelerate</string>
+    <string name="progressbar_reset_message">Reset progress bar style to default?</string>
+    <string name="progressbar_button_reset">Reset colors</string>
+    <string name="progressbar_reset">Reset</string>
+    <string name="progressbar_codejune">CodejuneColor ProgressBar Preset</string>
+    
 </resources>

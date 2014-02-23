@@ -16,8 +16,10 @@
 
 package com.android.settings.axxion;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -26,6 +28,9 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.cyanogenmod.colorpicker.ColorPickerPreference;
@@ -47,7 +52,9 @@ public class ProgressBar extends SettingsPreferenceFragment implements
     private static final String PROGRESSBAR_COLOR_4 = "progressbar_color_4";
     private static final String PRESET_GPLUS = "gplus_preset";
     private static final String PRESET_GNOW = "gnow_preset";
+    private static final String PRESET_CODEJUNE = "codejune_preset";
     private static final String KEY_PROGRESSBAR_INTERPOLATOR = "progressbar_interpolators";
+    private static final int MENU_RESET = Menu.FIRST;
 
     private CheckBoxPreference mprogressbar_mirror;
     private CheckBoxPreference mprogressbar_reverse;
@@ -119,14 +126,71 @@ public class ProgressBar extends SettingsPreferenceFragment implements
 
         findPreference(PRESET_GPLUS).setEnabled(true);
         findPreference(PRESET_GNOW).setEnabled(true);
+	findPreference(PRESET_CODEJUNE).setEnabled(true);
 
 	mprogressbar_interpolator = (ListPreference)findPreference(KEY_PROGRESSBAR_INTERPOLATOR);
 	mprogressbar_interpolator.setSummary(mprogressbar_interpolator.getEntry());
         int interpolatorindex = Settings.System.getInt(getContentResolver(), Settings.System.PROGRESSBAR_INTERPOLATOR, 0);
 	mprogressbar_interpolator.setValueIndex(interpolatorindex);
+	mprogressbar_interpolator.setSummary(mprogressbar_interpolator.getEntries()[interpolatorindex]);
 	mprogressbar_interpolator.setOnPreferenceChangeListener(this);
-
+	setHasOptionsMenu(true);
     }
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		menu.add(0, MENU_RESET, 0, R.string.progressbar_button_reset)
+		.setIcon(R.drawable.ic_settings_backup)
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MENU_RESET:
+			resetToDefault();
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+
+	private void resetToDefault() {
+		AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+		alertDialog.setTitle(R.string.progressbar_reset);
+		alertDialog.setMessage(R.string.progressbar_reset_message);
+		alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				ProgressBarColorReset();
+			}
+		});
+		alertDialog.setNegativeButton(R.string.cancel, null);
+		alertDialog.create().show();
+	}
+
+	private void ProgressBarColorReset() {
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_MIRROR, 0);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_REVERSE, 0);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_SPEED, 4);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_WIDTH, 4);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_LENGTH, 10);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_COUNT, 6);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_COLOR_1, -1);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_COLOR_2, -1);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_COLOR_3, -1);
+		Settings.System.putInt(getContentResolver(), Settings.System.PROGRESSBAR_COLOR_4, -1);
+
+		mprogressbar_mirror.setChecked(false);
+		mprogressbar_reverse.setChecked(false);
+		mprogressbar_speed.setValue(4);
+		mprogressbar_width.setValue(4);
+		mprogressbar_length.setValue(10);
+		mprogressbar_count.setValue(6);
+		mprogressbar_color_1.setNewPreviewColor(-1);
+		mprogressbar_color_2.setNewPreviewColor(-1);
+		mprogressbar_color_3.setNewPreviewColor(-1);
+		mprogressbar_color_4.setNewPreviewColor(-1);
+		}
 
     @Override
     public void onResume() {
@@ -185,6 +249,25 @@ public class ProgressBar extends SettingsPreferenceFragment implements
                     Settings.System.PROGRESSBAR_REVERSE, 1);
 	    return true;
         }
+	else if (preference.getKey().equals(PRESET_CODEJUNE)) {
+            mprogressbar_mirror.setChecked(false);
+            mprogressbar_reverse.setChecked(false);
+            mprogressbar_length.setValue(0);
+            mprogressbar_speed.setValue(13);
+            mprogressbar_count.setValue(6);
+	    mprogressbar_width.setValue(5);
+            mprogressbar_color_1.setNewPreviewColor(ColorPickerPreference.convertToColorInt("#ff4444"));
+            mprogressbar_color_2.setNewPreviewColor(ColorPickerPreference.convertToColorInt("#ffbb33"));
+            mprogressbar_color_3.setNewPreviewColor(ColorPickerPreference.convertToColorInt("#99cc00"));
+            mprogressbar_color_4.setNewPreviewColor(ColorPickerPreference.convertToColorInt("#33b5e5"));
+            mprogressbar_interpolator.setValueIndex(0);
+            mprogressbar_interpolator.setSummary(mprogressbar_interpolator.getEntries()[0]);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PROGRESSBAR_MIRROR, 0);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PROGRESSBAR_REVERSE, 0);
+            return true;
+	}
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
