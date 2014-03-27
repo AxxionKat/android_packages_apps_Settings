@@ -847,18 +847,19 @@
         <item>@string/listview_overshoot_interpolator</item>
         <item>@string/listview_anticipate_overshoot_interpolator</item>
         <item>@string/listview_bounce_interpolator</item>
-    </string-array>
 
     <string-array name="listview_interpolator_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>7</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
         <item>6</item>
         <item>7</item>
-     </string-array>
+        <item>8</item>
+    </string-array>
 
     <!-- Network Traffic Display States -->
     <string-array name="show_network_traffic_state_entries" translatable="false">
@@ -1015,10 +1016,12 @@
         <item>@string/battery_status_icon</item>
         <item>@string/battery_status_percentage</item>
         <item>@string/battery_status_icon_percentage</item>
+        <item>@string/battery_status_icon_percentage_jb</item>
         <item>@string/battery_status_circle</item>
         <item>@string/battery_status_circle_percentage</item>
         <item>@string/battery_status_dotted_circle</item>
         <item>@string/battery_status_dotted_circle_percentage</item>
+        <item>@string/battery_status_gone</item>
     </string-array>
 
     <string-array name="values_battery_icon" translatable="false">
