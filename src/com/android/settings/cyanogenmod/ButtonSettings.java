@@ -23,7 +23,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.os.Handler;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -116,8 +115,6 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
     private PreferenceCategory mNavigationPreferencesCat;
 
-    private Handler mHandler;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,8 +156,6 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
         // Home button answers calls.
         mHomeAnswerCall = (CheckBoxPreference) findPreference(KEY_HOME_ANSWER_CALL);
-
-        mHandler = new Handler();
 
         // Force Navigation bar related options
         mDisableNavigationKeys = (CheckBoxPreference) findPreference(DISABLE_NAV_KEYS);
@@ -529,16 +524,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             mCameraSleepOnRelease.setEnabled(isCameraWakeEnabled);
             return true;
         } else if (preference == mDisableNavigationKeys) {
-            mDisableNavigationKeys.setEnabled(false);
             mNavigationPreferencesCat.setEnabled(mDisableNavigationKeys.isChecked());
             writeDisableNavkeysOption(getActivity(), mDisableNavigationKeys.isChecked());
             updateDisableNavkeysOption();
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mDisableNavigationKeys.setEnabled(true);
-                }
-            }, 1000);
         } else if (preference == mPowerEndCall) {
             handleTogglePowerButtonEndsCallPreferenceClick();
             return true;
