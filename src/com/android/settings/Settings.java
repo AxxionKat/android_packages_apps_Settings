@@ -1005,8 +1005,6 @@ public class Settings extends PreferenceActivity
         private final LocationEnabler mLocationEnabler;
         private final VoiceWakeupEnabler mVoiceWakeupEnabler;
         private final TRDSEnabler mTRDSEnabler;
-        private final TRDSEnabler mTRDSEnabler;
-        
         private AuthenticatorHelper mAuthHelper;
         private DevicePolicyManager mDevicePolicyManager;
 
@@ -1031,8 +1029,8 @@ if (header.fragment == null && header.intent == null && header.id != R.id.trds_s
                     || header.id == R.id.mobile_network_settings
                     || header.id == R.id.profiles_settings
                     || header.id == R.id.voice_wakeup_settings
-                    || header.id == R.id.location_settings) {
-                    || header.id == R.id.theme_settings)
+                    || header.id == R.id.location_settings
+                    || header.id == R.id.theme_settings
                     || header.id == R.id.trds_settings) {
                 return HEADER_TYPE_SWITCH;
             } else if (header.id == R.id.security_settings) {
@@ -1245,7 +1243,6 @@ if (header.fragment == null && header.intent == null && header.id != R.id.trds_s
             mProfileEnabler.resume();
             mLocationEnabler.resume();
             mVoiceWakeupEnabler.resume();
-            mThemeEnabler.resume();
             mTRDSEnabler.resume();
         }
 
