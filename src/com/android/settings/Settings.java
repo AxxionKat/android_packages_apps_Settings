@@ -1005,6 +1005,7 @@ public class Settings extends PreferenceActivity
         private final LocationEnabler mLocationEnabler;
         private final VoiceWakeupEnabler mVoiceWakeupEnabler;
         private final TRDSEnabler mTRDSEnabler;
+        
         private AuthenticatorHelper mAuthHelper;
         private DevicePolicyManager mDevicePolicyManager;
 
@@ -1161,6 +1162,9 @@ if (header.fragment == null && header.intent == null && header.id != R.id.trds_s
                         mLocationEnabler.setSwitch(holder.switch_);
                     } else if (header.id == R.id.voice_wakeup_settings) {
                         mVoiceWakeupEnabler.setSwitch(holder.switch_);
+                           } else if (header.id == R.id.trds_settings) {
+                    mTRDSSwitch = (Switch) view.findViewById(R.id.switchWidget);
+                    mTRDSEnabler.setSwitch(holder.switch_);
                     }
                     updateCommonHeaderView(header, holder);
                     break;
@@ -1253,6 +1257,7 @@ if (header.fragment == null && header.intent == null && header.id != R.id.trds_s
             mProfileEnabler.pause();
             mLocationEnabler.pause();
             mVoiceWakeupEnabler.pause();
+            mTRDSEnabler.pause();
         }
     }
 
