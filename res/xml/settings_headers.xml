@@ -64,7 +64,7 @@
     <header
         android:id="@+id/multi_sim_settings"
         android:icon="@drawable/ic_settings_sim"
-        android:title="@string/multi_sim_settings_title"
+        android:title="@string/multi_sim_settings_title" >
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.android.settings"
