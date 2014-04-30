@@ -4,7 +4,12 @@
 
     <!-- General strings -->
     <string name="reset">Reset</string>
-    
+    <string name="general">General</string>
+    <string name="advanced">Advanced</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>    
+    <string name="note">NOTE</string>
+        
     <!-- Halo -->
     <string name="halo_settings_title">Halo</string>
     <string name="halo_enabled_title">Enable Halo</string>
@@ -600,6 +605,14 @@
     <string name="privacy_mode_summary">Disables notifications from beeing shown and dismissed. This way, you just see the icons of your notifications.</string>
     <string name="excluded_apps_title">Excluded applications</string>
     <string name="excluded_apps_summary">Excluded applications will not show up as lockscreen notifications</string>    
+    
+    <string name="notifications_on_lockscreen">Notifications on lockscreen</string>
+    <string name="notifications_on_lockscreen_summary">Choose between manners to show pending notifications on lockscreen</string>
+    <string name="notifications_on_lockscreen_warning_summary">Each one of notifications on lockscreen services under (PEEK or/and LOCKSCREEN NOTIFICATIONS) will auto disable the other. Make sure to check when disable one of them if you want to use one of those features again. </string>
+
+    <!--Notification peek-->
+    <string name="notification_peek_title">Notification peek</string>
+    <string name="notification_peek_summary">Show latest notification after picking up your device</string>
     
     <!-- On-The-Go -->
     <string name="power_menu_onthego_title">On-The-Go Mode</string>
