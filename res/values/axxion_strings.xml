@@ -75,7 +75,7 @@
     <string name="show_enter_key_summary">Force keyboard to show enter instead of emoticon key</string>
     
      <!-- Crimson Mode-->
-    <string name="crimson_settings_title"><i><b>Crimson Mode</b></i></string> 
+    <string name="crimson_settings_title"><b>Crimson Mode</b></string> 
     
         <!-- Notification drawer background -->
     <string name="notification_style_title">Background style</string>
