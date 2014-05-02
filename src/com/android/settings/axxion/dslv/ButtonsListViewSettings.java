@@ -62,9 +62,9 @@ import com.android.internal.util.cm.DeviceUtils.FilteredDeviceFeaturesArray;
 
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
-import com.android.settings.cyanogenmod.dslv.DragSortListView;
-import com.android.settings.cyanogenmod.dslv.DragSortController;
-import com.android.settings.cyanogenmod.util.ShortcutPickerHelper;
+import com.android.settings.axxion.dslv.DragSortListView;
+import com.android.settings.axxion.dslv.DragSortController;
+import com.android.settings.axxion.util.ShortcutPickerHelper;
 
 import java.io.File;
 import java.io.IOException;
