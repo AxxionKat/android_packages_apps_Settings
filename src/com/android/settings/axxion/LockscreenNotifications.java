@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference;
@@ -26,6 +27,7 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 public class LockscreenNotifications extends SettingsPreferenceFragment implements Preference.OnPreferenceChangeListener {
 
     private static final String KEY_PEEK = "notification_peek";
+    private static final String KEY_PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
     private static final String KEY_LOCKSCREEN_NOTIFICATIONS = "lockscreen_notifications";
     private static final String KEY_POCKET_MODE = "pocket_mode";
     private static final String KEY_SHOW_ALWAYS = "show_always";
@@ -44,6 +46,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private static final String KEY_NOTIFICATION_COLOR = "notification_color";
 
     private CheckBoxPreference mNotificationPeek;
+    private ListPreference mPeekPickupTimeout;
     private CheckBoxPreference mLockscreenNotifications;
     private CheckBoxPreference mPocketMode;
     private CheckBoxPreference mShowAlways;
@@ -70,6 +73,13 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
 
         mNotificationPeek = (CheckBoxPreference) findPreference(KEY_PEEK);
         mNotificationPeek.setPersistent(false);
+
+        mPeekPickupTimeout = (ListPreference) prefs.findPreference(KEY_PEEK_PICKUP_TIMEOUT);
+        int peekTimeout = Settings.System.getIntForUser(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, 0, UserHandle.USER_CURRENT);
+        mPeekPickupTimeout.setValue(String.valueOf(peekTimeout));
+        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntry());
+        mPeekPickupTimeout.setOnPreferenceChangeListener(this);
 
         mLockscreenNotifications = (CheckBoxPreference) prefs.findPreference(KEY_LOCKSCREEN_NOTIFICATIONS);
         mLockscreenNotifications.setChecked(Settings.System.getInt(cr,
@@ -268,7 +278,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             ((WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
             int max = Math.round((float)displaySize.y * (1f - (mOffsetTop.getProgress() / 100f)) /
                     (float)mContext.getResources().getDimensionPixelSize(R.dimen.notification_row_min_height));
-            mNotificationsHeight.setMaxValue(max);
+            mNotificationsHeight.setMaxValue(max)
         } else if (pref == mNotificationColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(value)));
@@ -276,6 +286,12 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_NOTIFICATIONS_COLOR, intHex);
+        } else if (pref == mPeekPickupTimeout) {
+            int peekTimeout = Integer.valueOf((String) value);
+            Settings.System.putIntForUser(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT,
+                    peekTimeout, UserHandle.USER_CURRENT);
+            updatePeekTimeoutOptions(value);e
             return true;
         } else if (pref == mExcludedAppsPref) {
             storeExcludedApps((Set<String>) value);
@@ -330,5 +346,13 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
                 mNotificationPeek.setEnabled(true);
             }
         }
+    }
+
+    private void updatePeekTimeoutOptions(Object newValue) {
+        int index = mPeekPickupTimeout.findIndexOfValue((String) newValue);
+        int value = Integer.valueOf((String) newValue);
+        Settings.Secure.putInt(getActivity().getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, value);
+        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntries()[index]);
     }
 }
