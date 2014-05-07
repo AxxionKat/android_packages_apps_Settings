@@ -336,6 +336,11 @@
             android:title="@string/show_all_anrs"
             android:summary="@string/show_all_anrs_summary"/>
 
+        <PreferenceScreen
+            android:id="@+id/wakelock_blocker"
+            android:title="@string/wakelock_blocker"
+            android:fragment="com.android.settings.axxion.WakeLockBlocker" />
+            
         <CheckBoxPreference
             android:key="kill_app_longpress_back"
             android:title="@string/kill_app_longpress_back"
