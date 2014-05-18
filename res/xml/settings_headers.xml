@@ -70,7 +70,6 @@
             android:targetPackage="com.android.settings"
             android:targetClass="com.android.settings.MultiSimSettings" />
     </header>
-<<<<<<< HEAD
 
     <!-- Other wireless and network controls -->
     <header
@@ -79,9 +78,7 @@
         android:title="@string/radio_controls_title"
         android:breadCrumbTitle="@string/wireless_networks_settings_title"
         android:fragment="com.android.settings.WirelessSettings"
-        android:icon="@drawable/empty_icon" />
-=======
->>>>>>> 100b9c8... back to pitch black
+        android:icon="@drawable/empty_icon" />\
 
     <!-- INTERFACE -->
     <header android:id="@+id/interface_section"
@@ -122,27 +119,8 @@
         settings:includeXmlForSearch="@xml/status_bar"
         android:id="@+id/status_bar_settings"
         android:icon="@drawable/ic_settings_system"
-        android:fragment="com.android.settings.cyanogenmod.StatusBar"
-        android:title="@string/status_bar_title" />
-
-    <!-- Notification Bar -->
-    <header
-        settings:includeXmlForSearch="@xml/notification_drawer"
-        android:id="@+id/notification_bar_settings"
-        android:icon="@drawable/ic_notify_open_normal"
-        android:fragment="com.android.settings.cyanogenmod.NotificationDrawer"
-        android:title="@string/notification_drawer_title" />
-
-    <!-- Gestures -->
-    <header
-        android:id="@+id/device_specific_gesture_settings"
-        android:icon="@drawable/ic_settings_gestures"
-        android:title="@string/gestures_settings_header_title">
-        <intent
-            android:action="com.cyanogenmod.action.LAUNCH_TOUCHSCREEN_GESTURE_SETTINGS"
-            android:targetPackage="com.cyanogenmod.settings.device"
-            android:targetClass="com.cyanogenmod.settings.device.TouchscreenGestureSettings" />
-    </header>
+        android:fragment="com.android.settings.cyanogenmod.SystemUiSettings"
+        android:title="@string/customization_settings" />
 
     <!-- HALO -->
     <header
@@ -150,6 +128,30 @@
         android:fragment="com.android.settings.axxion.Halo"
         android:icon="@drawable/ic_settings_halo" 
         android:title="@string/halo_settings_title" />
+ 
+    <!-- NAVIGATION -->
+    <header android:title="@string/header_category_navigation" />
+    
+    <!-- Pie -->
+    <header
+        android:id="@+id/pie_settings"
+        android:fragment="com.android.settings.axxion.PieControl"
+        android:icon="@drawable/ic_settings_pie" 
+        android:title="@string/pie_control_title" />
+        
+    <!-- Buttons -->
+    <header
+        android:id="@+id/button_settings"
+        android:icon="@drawable/ic_settings_buttons"
+        android:fragment="com.android.settings.cyanogenmod.ButtonSettings"
+        android:title="@string/button_settings" />  
+    
+    <!-- Navbar -->        
+    <header
+        android:id="@+id/navbar_settings"
+        android:icon="@drawable/ic_settings_navigation"
+        android:fragment="com.android.settings.axxion.NavBarSettings"
+        android:title="@string/navbar_settings" />                      
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
@@ -341,12 +343,12 @@
         android:icon="@drawable/ic_settings_development"
         android:title="@string/development_settings_title" />
 
-    <!-- Superuser -->
+    <!-- Advanced -->
     <header
-        android:id="@+id/superuser"
-        android:fragment="com.android.settings.cyanogenmod.superuser.PolicyNativeFragment"
-        android:icon="@drawable/ic_action_permission"
-        android:title="@string/superuser" />
+        android:id="@+id/advanced_settings"
+        android:fragment="com.android.settings.axxion.AdvancedSettings"
+        android:icon="@drawable/ic_settings_advanced"
+        android:title="@string/advanced_settings" />
 
     <!-- About Device -->
     <header

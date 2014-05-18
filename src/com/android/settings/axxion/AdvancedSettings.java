@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.cyanogenmod;
+package com.android.settings.axxion;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -30,15 +30,15 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
-public class SystemUiSettings extends SettingsPreferenceFragment {
+public class AdvancedSettings extends SettingsPreferenceFragment {
 
-    private static final String TAG = "SystemUiSettings";      
+    private static final String TAG = "AdvancedSettings";      
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.system_ui_settings);                
+        addPreferencesFromResource(R.xml.advanced_settings);                
     }    
 
     @Override
