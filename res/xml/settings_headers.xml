@@ -142,6 +142,13 @@
     <!-- NAVIGATION -->
     <header android:title="@string/header_category_navigation" />
         
+    <!-- Pie -->
+    <header
+        android:id="@+id/pie_settings"
+        android:fragment="com.android.settings.slim.PieControl"
+        android:icon="@drawable/ic_settings_pie" 
+        android:title="@string/pie_control_title" />
+        
     <!-- Buttons -->
     <header
         android:id="@+id/button_settings"
