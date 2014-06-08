@@ -529,6 +529,7 @@
     <string name="lockscreen_allow_all_summary">Allow legacy widgets that don\'t natively support lock screen placement</string>
     <string name="lockscreen_allow_all_warning">Some widgets may not behave as expected when placed on the lock screen.  Other widgets may expose your personal data to anyone who accesses your device.  Please be mindful of these warnings before continuing.</string>
 
+
     <!-- QS and navring last app -->
     <string name="navring_action_last_app">Last app</string>
     
@@ -756,4 +757,10 @@
  
     <!-- LED Screen on -->
     <string name="notification_light_screen_on_title">Show when screen is on</string>
+
+    <!--Blacklist peek and floating mode-->
+    <string name="blacklist_button_title">Blacklist</string>
+    <string name="peek_blacklist_label">Blacklist from Peek</string>
+    <string name="floating_blacklist_label">Blacklist from Floating Mode</string>
+
 </resources>
