@@ -427,10 +427,219 @@
     <string name="rominfo_settings_list_item_title">AxxionKat Statistics</string>
     <string name="rominfo_settings_list_item_summary">Help make AxxionKat better by opting into anonymous statistics reporting</string>
     <string name="changelog_title_summary">Here you can see the changes of the new version</string>
-    
+    <string name="changelog_title">Changelog</string> 
     <!-- Settings Reorder -->
     <string name="navbar_settings">Navigation Bar</string>
     <string name="header_category_navigation">Navigation</string>
     <string name="advanced_settings">Advanced</string>
     <string name="customization_settings">Customization</string>
+    
+    <!-- Recent panel settings -->
+    <string name="recents_panel_settings_title" >Recents panel settings</string>
+    
+    <!--  Recents clear all -->
+    <string name="recent_clear_all_button">Recents clear all button</string>
+    <string name="clear_all_button">Recents clear all button</string>
+    <string name="show_recent_clear_all_button_title">Show clear all button</string>
+    <string name="show_recent_clear_all_button_summary">Tick to show or untick to hide the clear all button within the recent applications screen</string>
+    <string name="recent_clear_all_button_location_title">Clear all button position</string>
+    <string name="recent_clear_all_button_location_summary">Choose in which corner the clear all recent apps button is shown</string>
+    <string name="recent_clear_all_button_location_top_left">Top left</string>
+    <string name="recent_clear_all_button_location_top_right">Top right</string>
+    <string name="recent_clear_all_button_location_bottom_left">Bottom left</string>
+    <string name="recent_clear_all_button_location_bottom_right">Bottom right</string>
+    
+    <!-- Recents Ram Bar -->
+    <string name="ram_bar">Recents RAM bar</string>
+    <string name="ram_bar_note_title">Note</string>
+    <string name="ram_bar_note_summary">This RAM bar shows the actual android memory (RAM) utilization. Please note that having cached apps helps your device open apps much faster.</string>
+    <string name="ram_bar_mode_title">Recents RAM bar mode</string>
+    <string name="ram_bar_mode_dialog_title">Show on recents RAM bar</string>
+    <string name="ram_bar_none">None</string>
+    <string name="ram_bar_apps">Applications</string>
+    <string name="ram_bar_cache">Applications and cache</string>
+    <string name="ram_bar_other">Applications, cache and other</string>
+    <string name="ram_bar_style_cat">Recents RAM bar style</string>
+    <string name="ram_bar_color_app_mem_color">Applications RAM color</string>
+    <string name="ram_bar_color_cache_mem_color">Cache RAM color</string>
+    <string name="ram_bar_color_total_mem_color">Other RAM color</string>
+    <string name="ram_bar_color_enabled">Enabled</string>
+    <string name="ram_bar_color_disabled">Disabled</string>
+    <string name="ram_bar_button_help">Help</string>
+    <string name="ram_bar_button_reset">Reset colors</string>
+    <string name="ram_bar_reset">Reset</string>
+    <string name="ram_bar_reset_message">Reset RAM bar style to default?</string>
+    
+    <!-- Custom Recent Settings -->
+    <string name="custom_recent_title">Use SlimRecents</string>
+    <string name="custom_recent_summary">Tick to Slim recents or untick for stock recents. TICKING OR UNTICKING THIS BOX WILL RESTART YOUR SYSTEMUI</string>
+    
+    <!-- Recent panel -->
+    <string name="recent_panel_category">Recent apps panel</string>
+    <string name="slim_recent_panel_category">SlimRecents</string>
+    <string name="recent_panel_scale_title">Size</string>
+    <string name="recent_panel_scale_summary">Recent apps panel size in percent.</string>
+    <string name="recent_panel_100">100% (default)</string>
+    <string name="recent_panel_85">85%</string>
+    <string name="recent_panel_70">70%</string>
+    <string name="recent_panel_expanded_mode_title">Expanded mode</string>
+    <string name="recent_panel_expanded_mode_summary">Recent tasks expanded preview mode</string>
+    <string name="recent_panel_expanded_mode_auto">Auto (default)</string>
+    <string name="recent_panel_expanded_mode_always">Always</string>
+    <string name="recent_panel_expanded_mode_never">Never</string>
+
+    <!-- ATTENTION: RTL languages need to replace left with right -->
+    <string name="recent_panel_lefty_mode_title">Show on the left edge</string>
+    <string name="recent_panel_lefty_mode_summary">Show recent apps panel on the left edge.</string>
+     
+    <!-- Lockscreen battery ring -->
+    <string name="battery_around_lockscreen_ring">Battery around unlock ring</string>
+    
+    <!-- Notification Reminders -->
+    <string name="noti_reminder_title">Notification reminder</string>
+    <string name="noti_reminder_enable_title">Enable notification reminder</string>
+    <string name="noti_reminder_sound_title">Notify sound</string>
+    <string name="noti_reminder_sound_looping">Until dismissed</string>
+    <string name="noti_reminder_ringtone">Notify ringtone</string>
+    <string name="noti_reminder_summary">Enter with a notification and set a reminder for the same</string>    
+    <string name="noti_reminder_interval">Flip interval</string>
+    <string name="noti_reminder_interval_1s">1 second</string>
+    <string name="noti_reminder_interval_1dot5s">1.5 seconds</string>
+    <string name="noti_reminder_interval_2s">2 seconds</string>
+    <string name="noti_reminder_interval_2dot5s">2.5 seconds</string>
+    <string name="noti_reminder_interval_3s">3 seconds</string>
+    <string name="noti_reminder_interval_3dot5s">3.5 second</string>
+    <string name="noti_reminder_interval_4s">4 seconds</string>
+    
+    <!-- Custom notification panel header -->
+    <string name="custom_statusbar_header_title">Contextual notification panel header</string>
+    <string name="custom_statusbar_header_summary">Sets the background of the notification panel header to an image based on the current date and time</string>
+    
+    <!-- Allow all widgets in keyguard -->
+    <string name="lockscreen_allow_all_title">Allow all widgets</string>
+    <string name="lockscreen_allow_all_summary">Allow legacy widgets that don\'t natively support lock screen placement</string>
+    <string name="lockscreen_allow_all_warning">Some widgets may not behave as expected when placed on the lock screen.  Other widgets may expose your personal data to anyone who accesses your device.  Please be mindful of these warnings before continuing.</string>
+
+    <!-- QS and navring last app -->
+    <string name="navring_action_last_app">Last app</string>
+    
+    <!-- QuickSettings haptic feedback -->
+    <string name="haptic_qs_tiles_title">Vibrate on touch</string>
+    <string name="haptic_qs_tiles_summary">Vibrate when touching tiles</string> 
+    
+    <!-- Quicksettings panel floating window -->
+    <string name="title_floating_window">Floating window</string>
+    <string name="summary_floating_window">Open Quick Settings tiles in floating window</string>
+    
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on color below to apply</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#ff000000</string>
+    <string name="set">Set</string>
+    <string name="color_default">Default</string>    
+
+    <!-- Volume Steps -->
+    <string name="volume_steps_title">Volume Steps</string>
+    <string name="volume_steps_60">60</string>
+    <string name="volume_steps_45">45</string>
+    <string name="volume_steps_30">30</string>
+    <string name="volume_steps_15">15</string>
+    <string name="volume_steps_7">7</string>
+    <string name="volume_steps_5">5</string>
+    <string name="volume_steps_alarm_title">Alarm</string>
+    <string name="volume_steps_dtmf_title">DTMF</string>
+    <string name="volume_steps_music_title">Music</string>
+    <string name="volume_steps_notification_title">Notification</string>
+    <string name="volume_steps_ring_title">Ringer</string>
+    <string name="volume_steps_system_title">System</string>
+    <string name="volume_steps_voice_call_title">Voice Call</string>
+    
+    <!-- Axxion Updater -->
+    <string name="axxionupdate_settings_title">Axxion Updates</string>
+    <string name="axxionupdate_settings_summary">Check for, view or install updates</string>    
+    
+    <!--Blacklist-->
+    <string name="blacklist_button_title">Blacklist</string>
+    <string name="floating_blacklist_label">Blacklist from Floating Mode</string>
+    
+    <!-- Lockscreen Notifications -->
+    <!-- Categories --> 
+    <string name="general">General</string>
+    <string name="layout">Layout</string>
+    <string name="privacy">Privacy</string>
+
+    <string name="lockscreen_notifications">Lockscreen notifications</string>
+    <string name="lockscreen_notifications_summary">Show pending notifications on lockscreen</string>
+    <string name="pocket_mode">Pocket mode</string>
+    <string name="pocket_mode_summary">Turn screen on and show all notifications when device is pulled out of pocket. Turn screen off when device gets back into pocket.</string>
+    <string name="show_always">Show always</string>
+    <string name="show_always_summary">Always turn screen on when pulled out of pocket, even when there are no notifications pending</string>
+    <string name="hide_low_priority">Hide low priority</string>
+    <string name="hide_low_priority_summary">Hide low priority notifications such as google now weather notifications</string>
+    <string name="hide_non_clearable">Hide non clearable</string>
+    <string name="hide_non_clearable_summary">Hide all non clearable notifications</string>
+    <string name="dismiss_all">Allow dismissing all notifications</string>
+    <string name="dismiss_all_summary">Allow dismissing even non clearable notifications. Of course, they\'re just hidden from lockscreen and not from the notification panel.</string>
+    <string name="expanded_view">Expanded notification view</string>
+    <string name="expanded_view_summary">Add possibility to toggle between normal and expanded view by longpress. The expanded view sometimes shows more private information so you might want to disable it.</string>
+    <string name="force_expanded_view">Force expanded view</string>
+    <string name="force_expanded_view_summary">Show notifications expanded by default. You still will be able to toggle between expanded and normal view.</string>
+    <string name="wake_on_notification">Wake on notification</string>
+    <string name="wake_on_notification_summary">Wake device when a new notification is received</string>
+    <string name="notifications_height">Notification count</string>
+    <string name="notifications_height_summary">Number of notifications displayed at once</string>
+    <string name="offset_top">Offset to the top of the screen:</string>
+    <string name="privacy_mode">Privacy Mode</string>
+    <string name="privacy_mode_summary">Disables notifications from beeing shown and dismissed. This way, you just see the icons of your notifications.</string>
+    <string name="excluded_apps_title">Excluded applications</string>
+    <string name="excluded_apps_summary">Excluded applications will not show up as lockscreen notifications</string>    
+    
+    <!-- On-The-Go -->
+    <string name="power_menu_onthego_title">On-The-Go Mode</string>
+    <string name="title_tile_onthego">On-The-Go</string>
+
+    <!-- Minimum Vibration Duration -->
+    <string name="minimum_vibration_duration">Minimum vibration duration</string>
+    <!-- Vibration multiplier -->
+    <string name="vibrator_multiplier_title">Vibration multiplier</string>    
+    
+    <!-- Show 4G icon instead of LTE. User defined settings -->
+    <string name="show_lte_or_fourgee_title">Show 4G network</string>
+    <string name="show_lte_or_fourgee_summary">This will allow you to show 4G instead of LTE</string>    
+
+    <!-- Custom Carrier Label -->
+    <string name="notification_carrier_label_title">Carrier label</string>
+    <string name="notification_custom_carrier_label_title">Custom carrier label</string>
+    <string name="notification_custom_carrier_label_explain">Please enter a new label. Enter an empty label to revert to stock label.</string>
+    <string name="notification_custom_carrier_label_notset">Custom label currently not set</string> 
+
+    <!-- Heads up -->
+    <string name="heads_up_title">Heads up</string>
+    <string name="heads_up_settings_title">Heads up notification</string>
+    <string name="heads_up_expanded_title">Always expanded</string>
+    <string name="heads_up_expanded_summary">Show heads up notification always expanded</string>
+    <string name="heads_up_show_updates_title">Show updates</string>
+    <string name="heads_up_show_updates_summary">Show updates from pending background notifications as heads up</string>
+    <string name="heads_up_gravity_title">Show at the bottom</string>
+    <string name="heads_up_gravity_summary">Show heads up notification at the bottom of the screen</string>
+    <string name="heads_up_snooze_title">Snooze timer</string>
+    <string name="heads_up_snooze_summary">If snooze button is pressed disable heads up for <xliff:g id="number">%d</xliff:g> minutes.</string>
+    <string name="heads_up_snooze_disabled_summary">Snooze timer is disabled.</string>
+    <string name="heads_up_snooze_3min">3 minutes</string>
+    <string name="heads_up_snooze_5min">5 minutes</string>
+    <string name="heads_up_snooze_10min">10 minutes</string>
+    <string name="heads_up_snooze_15min">15 minutes</string>
+    <string name="heads_up_snooze_20min">20 minutes</string>
+    <string name="heads_up_time_out_title">Time out</string>
+    <string name="heads_up_time_out_summary">Heads up notification will show up for <xliff:g id="number">%d</xliff:g> seconds.</string>
+    <string name="heads_up_time_out_never_summary">Heads up notification will show till it is dismissed.</string>
+    <string name="heads_up_time_out_4sec">4 seconds</string>
+    <string name="heads_up_time_out_6sec">6 seconds</string>
+    <string name="heads_up_time_out_8sec">8 seconds</string>
+    <string name="heads_up_time_out_10sec">10 seconds</string>
+    <string name="heads_up_time_out_never">Never</string>
+    <string name="heads_up_switch_label">Enable heads up notification</string>
 </resources>
