@@ -122,13 +122,23 @@
         android:fragment="com.android.settings.cyanogenmod.SystemUiSettings"
         android:title="@string/customization_settings" />
 
+	<!-- NOTIFICATIONS -->
+    <header android:title="@string/header_category_notifications" />
+	
     <!-- HALO -->
     <header
         android:id="@+id/halo_settings"
         android:fragment="com.android.settings.axxion.Halo"
         android:icon="@drawable/ic_settings_halo" 
         android:title="@string/halo_settings_title" />
- 
+                
+    <!-- Heads up -->
+    <header
+        android:id="@+id/heads_up_settings"
+        android:icon="@drawable/ic_settings_heads_up"
+        android:fragment="com.android.settings.axxion.HeadsUpSettings"
+        android:title="@string/heads_up_title" />
+        
     <!-- NAVIGATION -->
     <header android:title="@string/header_category_navigation" />
     
