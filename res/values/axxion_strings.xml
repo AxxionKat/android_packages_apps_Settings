@@ -431,6 +431,7 @@
     <!-- Settings Reorder -->
     <string name="navbar_settings">Navigation Bar</string>
     <string name="header_category_navigation">Navigation</string>
+    <string name="header_category_notifications">Notifications</string>
     <string name="advanced_settings">Advanced</string>
     <string name="customization_settings">Customization</string>
     
