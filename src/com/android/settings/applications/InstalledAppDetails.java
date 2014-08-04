@@ -454,6 +454,13 @@ public class InstalledAppDetails extends Fragment
         mPrivacyGuardSwitch.setOnCheckedChangeListener(this);
     }
 
+    private void initHeadsUpButton() {
+        boolean enabled = mPm.getHeadsUpSetting(mAppEntry.info.packageName);
+        mHeadsUpSwitch.setChecked(enabled);
+        mHeadsUpSwitch.setEnabled(true);
+        mHeadsUpSwitch.setOnCheckedChangeListener(this);
+    }
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
