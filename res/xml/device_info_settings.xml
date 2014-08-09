@@ -17,6 +17,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/about_settings">
 
+        <PreferenceScreen android:key="axxion_logo"
+                          android:layout="@layout/axxion_logo_row" />
 
         <!-- Axxion Anonymous Stats -->
        <PreferenceScreen android:key="rominfo_settings"
