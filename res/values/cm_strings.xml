@@ -1287,7 +1287,9 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="sd_media_format_gesture_explanation">You need to draw your unlock pattern to confirm that you want to erase the SD card.</string>
     
     <!-- Animation Controls -->
-    <string name="title_animation_controls">AOKP Custom System Animations</string>
+    <string name="animation_settings_title">Animations</string>
+  
+    <string name="title_animation_controls">Custom System Animations</string>
     <string name="activity_open_title">Activity Open Animation</string>
     <string name="activity_close_title">Activity Close Animation</string>
     <string name="task_open_title">Task Open Animation</string>
