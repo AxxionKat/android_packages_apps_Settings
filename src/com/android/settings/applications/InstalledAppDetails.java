@@ -582,7 +582,6 @@ public class InstalledAppDetails extends Fragment
         mHaloState.setText((mHaloPolicyIsBlack ? R.string.app_halo_label_black : R.string.app_halo_label_white));
         mPeekBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.peek_blacklist);
         mFloatingBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.floating_blacklist);
->>>>>>> 655284e... Apps: Add blacklist interface [2/2]
 
         return view;
     }
