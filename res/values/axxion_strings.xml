@@ -783,4 +783,6 @@
     <!-- Power menu nav bar -->
     <string name="power_menu_navbar_title">Navigation bar</string>
     
+    <!-- Volume custom bg -->
+    <string name="volume_panel_bg_color_title">Volume panel BG color</string>
 </resources>
