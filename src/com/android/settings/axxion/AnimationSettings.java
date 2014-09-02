@@ -39,12 +39,23 @@ public class AnimationSettings extends SettingsPreferenceFragment {
 
     private static final String TAG = "AnimationSettings";      
 
+    private static final String KEY_TOAST_ANIMATION = "toast_animation";
+
+    ListPreference mToastAnimation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.animation_settings);                
     }    
+
+        // Toast Animations
+        mToastAnimation = (ListPreference)findPreference(KEY_TOAST_ANIMATION);
+        int CurrentToastAnimation = Settings.System.getInt(getContentResolver(), Settings.System.TOAST_ANIMATION, 1);
+        mToastAnimation.setValueIndex(CurrentToastAnimation);
+        mToastAnimation.setSummary(mToastAnimation.getEntries()[CurrentToastAnimation]);
+        mToastAnimation.setOnPreferenceChangeListener(this);
 
     @Override
     public void onResume() {
