@@ -514,6 +514,9 @@
     <string name="heads_up_switch_label">Enable heads up notification</string> 
     <string name="disable_heads_up">Disable Heads up</string>
     <string name="disable_heads_up_summary">Hide notifications on lock screen</string> 
+    
+    <string name="heads_up_floating_window">Launch in floating window</string>
+
     <!-- Toggle switch title for enabling battery saver connections. [CHAR LIMIT=32] -->
     <string name="data_usage_enable_batterysaver">Battery saver</string>
 
