@@ -599,9 +599,6 @@
     <string name="mode_network_2h">2 hours</string>
     <string name="mode_network_5h">5 hours</string> 
  
-    <!-- LED Screen on -->
-    <string name="notification_light_screen_on_title">Show when screen is on</string>
-
     <!--Blacklist peek and floating mode-->
     <string name="blacklist_button_title">Blacklist</string>
     <string name="peek_blacklist_label">Blacklist from Peek</string>
@@ -827,4 +824,5 @@
     <string name="toast_Translucent_animation">Translucent Animation</string>
     <string name="toast_SlideLeftRight_animation">Slide Left To Right Animation</string>
     <string name="toast_SlideRightLeft_animation">Slide Right To Left Animation</string>    
+
 </resources>
