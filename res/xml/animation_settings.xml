@@ -38,12 +38,6 @@
         android:entryValues="@array/toast_animation_values"
         android:persistent="false" />
 
-       <PreferenceScreen
-            android:key="interface_animation_scroll"
-            android:fragment="com.android.settings.axxion.KeyboardAnimationInterfaceSettings"
-            android:title="@string/ime_animation_title"
-            android:summary="@string/ime_animation_summary" />
-            
     </PreferenceCategory>
   
     <PreferenceCategory
