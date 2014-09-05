@@ -34,9 +34,8 @@
         android:key="notification_drawer"
         android:fragment="com.android.settings.cyanogenmod.NotificationDrawer"
         android:icon="@drawable/ic_settings_notification_drawer"
-        android:title="@string/notification_drawer_title" />
-    </PreferenceCategory>
-    
+        android:title="@string/notification_drawer_title" />0
+        
     <PreferenceCategory
      	android:key="progressbar"
     	android:title="@string/progressbar_title" >
