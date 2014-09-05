@@ -38,7 +38,7 @@ import com.android.internal.telephony.Phone;
 
 import com.android.settings.axxion.SeekBarPreference;
 import com.android.settings.axxion.batterysaver.BatterySaverHelper;
-import com.android.settings.axxion.TimeRangePreference;
+import com.android.settings.cyanogenmod.TimeRangePreference;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 
