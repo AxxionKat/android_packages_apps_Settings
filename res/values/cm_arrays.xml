@@ -752,6 +752,11 @@
 
     <!-- Use 0 as default -->
     <string-array name="qs_quick_access_size_values" translatable="false">
+	  <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array> 
 
     <!-- MediaScanner behavior on boot -->
     <string-array name="media_scanner_on_boot_entries">

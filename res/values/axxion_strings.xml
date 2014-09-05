@@ -33,6 +33,17 @@
     <string name="halo_notification_msgbox_summary">Show message box for incoming notifications</string>
     <string name="halo_unlock_ping_title">Ping on unlock</string>
     <string name="halo_unlock_ping_summary">Halo will ping when device is unlocked if new notifications were received</string>
+
+    <string name="halo_colors">Enable Custom Colors</string>
+    <string name="halo_circle_color">Change Circle Color</string> 
+    <string name="halo_effect_color">Change Effect Color</string>
+    <string name="halo_notif_title_color">Notification Title Color</string>
+    <string name="halo_notif_desc_color">Notification Description Color</string>
+    <string name="halo_speech_bubble_color">Speech Bubble Color</string>
+    <string name="halo_text_color">Text Color</string>
+    <string name="halo_color_category_title">Custom color settings</string>
+    <string name="halo_switch_toast">Restarting UI!</string>
+    
     <string name="halo_size_title">Halo size</string>
     <string name="halo_size_summary">Defines how big Halo is going to be</string>
     <string name="halo_size_miniscule">Miniscule</string>
@@ -57,19 +68,6 @@
     <!-- Label for are-halo-notifications-allowed checkbox in app details [CHAR LIMIT=20] -->
     <string name="app_halo_label_black">Blacklist from HALO</string>
     <string name="app_halo_label_white">Whitelist from HALO</string>
-    
-    <!-- Color Picker -->
-    <string name="dialog_color_picker">Color Picker</string>
-    <string name="press_color_to_apply">Press on color below to apply</string>
-    <string name="arrow_right">→</string>
-    <string name="arrow_down">↓</string>
-    <string name="hex">Hex:</string>
-    <string name="hex_hint">#ff000000</string>
-    <string name="set">Set</string>
-    <string name="color_default">Default</string>
-    
-    <!-- Notifications light with screen on -->
-    <string name="notification_light_screen_on_title">Show when screen is on</string>
 
     <!-- Keyboard and Input ASS methods -->
     <string name="title_keyboard_input">Advanced options</string>
@@ -132,13 +130,14 @@
     <string name="lockscreen_colorize_handle_title">Colorize custom handle</string>
     <string name="lockscreen_colorize_handle_summary">Lock color will be set to your custom image</string>
     <string name="lockscreen_style_title">Theme style</string>
+    <string name="lockscreen_style_summary">Customize your lockscreen style</string>
     <string name="lockscreen_frame_color_title">Frame color</string>
     <string name="lockscreen_frame_color_summary">Color of the widget and unlock frames</string>
     <string name="lockscreen_lock_color_title">Lock color</string>
     <string name="lockscreen_lock_color_summary">Color of the lock handles</string>
     <string name="lockscreen_dots_color_title">Dots color</string>
     <string name="lockscreen_dots_color_summary">Color of the glowpad dots</string>
-    
+
     <!-- UI debug setting: show CPU info? [CHAR LIMIT=25] -->
     <string name="show_cpu_info">Show CPU info</string>
     <!-- UI debug setting: show cpu usage summary [CHAR LIMIT=50] -->
@@ -174,34 +173,17 @@
     <string name="clock_date_style_lowercase">Lowercase</string>
     <string name="clock_date_style_uppercase">Uppercase</string>
     <string name="clock_date_format_custom">Custom java format</string>
-    <string name="status_bar_clock_style_reset_message">Reset clock color?</string>
+    <string name="status_bar_clock_style_reset_message">Reset clock style?</string>
+    <string name="clock_use_second">Use second clock</string>
+    <string name="clock_use_second_summary">Show second in clock</string>
+    <string name="clock_font_style_title">Font</string>
+    <string name="clock_font_bold">Bold</string>
+    <string name="clock_font_condensed">Condensed</string>
+    <string name="clock_font_light">Light</string>
+    <string name="clock_font_light_italic">Light italic</string>
+    <string name="clock_font_normal">Normal</string>
     
-    <!-- Smooth ProgressBar -->
-    <string name="progressbar_title">Custom ProgressBar</string>
-    <string name="progressbar_mirror_title">Mirror Mode</string>
-    <string name="progressbar_reverse_title">Reversed</string>
-    <string name="progressbar_speed_title">Speed</string>
-    <string name="progressbar_width_title">Stroke Width</string>
-    <string name="progressbar_length_title">Separator length</string>
-    <string name="progressbar_count_title">Sections Count</string>
-    <string name="progressbar_color_1_title">Color1</string>
-    <string name="progressbar_color_2_title">Color2</string>
-    <string name="progressbar_color_3_title">Color3</string>
-    <string name="progressbar_color_4_title">Color4</string>
-    <string name="sample_progressbar_text">ProgressBar : Preview</string>
-    <string name="progressbar_gnow">GoogleNow ProgressBar Preset</string>
-    <string name="progressbar_gplus">GooglePlus ProgressBar Preset</string>
-    <string name="progressbar_interpolator">Interpolator</string>
-    <string name="progressbar_none">None</string>
-    <string name="progressbar_acclerate">Accelerate</string>
-    <string name="progressbar_linear">Linear</string>
-    <string name="progressbar_acceleratedecelerate">AccelerateDecelerate</string>
-    <string name="progressbar_decelerate">Decelerate</string>
-    <string name="progressbar_reset_message">Reset progress bar style to default?</string>
-    <string name="progressbar_button_reset">Reset colors</string>
-    <string name="progressbar_reset">Reset</string>
-    <string name="progressbar_codejune">CodejuneColor ProgressBar Preset</string>
-    
+
     <!-- NavBar long press actions -->
     <string name="navbar_long_press_title">Long press actions</string>
     <string name="recent_long_press_title">Recent long press actions</string>
@@ -213,8 +195,9 @@
     <string name="recent_long_press_qs_panel">QS panel</string>
     <string name="recent_long_press_power_menu">Power menu</string>
    
-    <!-- QS Power menu -->
+    <!-- QS Power menu & Navring -->
     <string name="title_tile_power">Power Menu</string>
+    <string name="navring_action_power_menu">Power menu</string>       
     
     <!-- OnClick Fliptile animation -->
     <string name="flip_qs_tiles_title">Flip tiles</string>
@@ -229,7 +212,7 @@
     <string name="quick_tiles_alpha_title">Tiles background transparency</string>
     <string name="qs_style_reset_message">Reset all colors to default?</string>
 
-<!-- Wakelock blocker -->
+	<!-- Wakelock blocker -->
     <string name="wakelock_blocker">Wakelock Blocker</string>
     <string name="wakelock_blocker_title">Enable</string>
     <string name="wakelock_blocker_summary">Activate blocking for checked wakelocks</string>
@@ -238,10 +221,6 @@
     <string name="wakelock_blocker_reload">Reload</string>
     <string name="wakelock_blocker_warning_title">Proceed with Caution</string>
     <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data</string>
-
-<!-- Volume pane timeout -->
-    <string name="volume_panel_timeout_title">Volume panel Timeout</string>
-    <string name="volume_panel_timeout_summary">Time until the volume panel to hide</string>
 
     <!-- SlimSizer -->
     <string name="listsystem">list</string>
@@ -271,13 +250,14 @@
     <string name="rominfo_settings_list_item_title">AxxionKat Statistics</string>
     <string name="rominfo_settings_list_item_summary">Help make AxxionKat better by opting into anonymous statistics reporting</string>
     <string name="changelog_title_summary">Here you can see the changes of the new version</string>
-    <string name="changelog_title">Changelog</string> 
+    
     <!-- Settings Reorder -->
     <string name="navbar_settings">Navigation Bar</string>
     <string name="header_category_navigation">Navigation</string>
     <string name="header_category_notifications">Notifications</string>
     <string name="advanced_settings">Advanced</string>
     <string name="customization_settings">Customization</string>
+    <string name="changelog_title">Changelog</string> 
     
     <!-- Recent panel settings -->
     <string name="recents_panel_settings_title" >Recents panel settings</string>
@@ -360,10 +340,6 @@
     <string name="noti_reminder_interval_3dot5s">3.5 second</string>
     <string name="noti_reminder_interval_4s">4 seconds</string>
     
-    <!-- Custom notification panel header -->
-    <string name="custom_statusbar_header_title">Contextual notification panel header</string>
-    <string name="custom_statusbar_header_summary">Sets the background of the notification panel header to an image based on the current date and time</string>
-    
     <!-- Allow all widgets in keyguard -->
     <string name="lockscreen_allow_all_title">Allow all widgets</string>
     <string name="lockscreen_allow_all_summary">Allow legacy widgets that don\'t natively support lock screen placement</string>
@@ -379,8 +355,8 @@
     
     <!-- Quicksettings panel floating window -->
     <string name="title_floating_window">Floating window</string>
-    <string name="summary_floating_window">Open Quick Settings tiles in floating window</string>
-    
+    <string name="summary_floating_window">Open Quick Settings tiles in floating window</string>      
+
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
     <string name="press_color_to_apply">Press on color below to apply</string>
@@ -407,13 +383,29 @@
     <string name="volume_steps_system_title">System</string>
     <string name="volume_steps_voice_call_title">Voice Call</string>
     
-    <!-- Axxion Updater -->
+    <!-- axxion Updater -->
     <string name="axxionupdate_settings_title">Axxion Updates</string>
     <string name="axxionupdate_settings_summary">Check for, view or install updates</string>    
     
     <!--Blacklist-->
     <string name="blacklist_button_title">Blacklist</string>
     <string name="floating_blacklist_label">Blacklist from Floating Mode</string>
+
+    <!-- Smooth Progress Bar -->
+    <string name="progressbar_title">Custom Progress Bar</string>
+    <string name="progressbar_mirror_title">Mirror Mode</string>
+    <string name="progressbar_reverse_title">Reversed</string>
+    <string name="progressbar_speed_title">Speed</string>
+    <string name="progressbar_width_title">Stroke Width</string>
+    <string name="progressbar_length_title">Separator length</string>
+    <string name="progressbar_count_title">Sections Count</string>
+    <string name="progressbar_color_1_title">Color1</string>
+    <string name="progressbar_color_2_title">Color2</string>
+    <string name="progressbar_color_3_title">Color3</string>
+    <string name="progressbar_color_4_title">Color4</string>
+    <string name="sample_progressbar_text">Progress Bar : Preview</string>
+    <string name="progressbar_options">Progress Bar Options</string>
+    <string name="progressbar_reset_message">Reset to default?</string>
     
     <!-- Lockscreen Notifications -->
     <!-- Categories --> 
@@ -786,7 +778,7 @@
     
     <!-- Power menu nav bar -->
     <string name="power_menu_navbar_title">Navigation bar</string>
-    
+
     <!-- Volume custom bg -->
     <string name="volume_panel_bg_color_title">Volume panel BG color</string>
 

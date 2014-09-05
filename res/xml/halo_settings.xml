@@ -44,9 +44,8 @@ limitations under the License.
 
     <net.margaritov.preference.colorpicker.ColorPickerPreference
         android:key="halo_color"
-        android:dialogTitle="@string/halo_color_title"
-        android:title="@string/halo_color_title"
-        android:summary="@string/halo_color_summary"
+        android:dialogTitle="@string/halo_color_category_title"
+        android:title="@string/halo_colors"
         android:defaultValue="@color/halo_color"
         alphaSlider="true" 
         hexValue="false" />
