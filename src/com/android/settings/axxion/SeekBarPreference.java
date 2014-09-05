@@ -118,7 +118,8 @@ public class SeekBarPreference extends Preference
 
     public void setProperty(String property) {
         this.property = property;
-
+    }
+    
     public void disableText(boolean disable) {
         mDisableText = disable;
     }
