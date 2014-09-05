@@ -50,7 +50,7 @@
 
     <!-- Label for are-halo-notifications-allowed checkbox in app details [CHAR LIMIT=20] -->
     <string name="app_halo_label_black">Blacklist from HALO</string>
-    <string name="app_halo_label_white">Whitelist from HALO</string>    
+    <string name="app_halo_label_white">Whitelist from HALO</string>
     
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
@@ -62,7 +62,10 @@
     <string name="set">Set</string>
     <string name="color_default">Default</string>
     
-    <!-- Keyboard and Input ASS methods  -->
+    <!-- Notifications light with screen on -->
+    <string name="notification_light_screen_on_title">Show when screen is on</string>
+
+    <!-- Keyboard and Input ASS methods -->
     <string name="title_keyboard_input">Advanced options</string>
     <string name="disable_fullscreen_keyboard_title">Disable fullscreen keyboard</string>
     <string name="disable_fullscreen_keyboard_summary">Landscape keyboard will never take up entire screen</string>
@@ -70,12 +73,9 @@
     <string name="keyboard_rotation_toggle_summary">Force auto-rotate when keyboard is shown</string>
     <string name="keyboard_rotation_timeout_title">Auto-rotate timeout</string>
     <string name="keyboard_rotation_timeout_summary">Disables auto-rotate sensor <xliff:g id="rotate_timeout">%1$s</xliff:g> seconds after keyboard is hidden</string>
-    <string name="keyboard_rotation_dialog">Note: This feature forces auto-rotate to turn on temporarily while the keyboard is out.  It has no effect when auto-rotate is already enabled.</string>
+    <string name="keyboard_rotation_dialog">Note: This feature forces auto-rotate to turn on temporarily while the keyboard is out. It has no effect when auto-rotate is already enabled.</string>
     <string name="show_enter_key_title">Show enter key</string>
     <string name="show_enter_key_summary">Force keyboard to show enter instead of emoticon key</string>
-    
-     <!-- Crimson Mode-->
-    <string name="crimson_settings_title"><b>Crimson Mode</b></string> 
     
         <!-- Notification drawer background -->
     <string name="notification_style_title">Background style</string>
@@ -90,6 +90,9 @@
     <string name="notif_alpha_title">Notification transparency</string>
     <string name="shortcut_image_not_valid">The chosen app did not return a valid icon or does not support image cropping. Use another app</string>
 
+     <!-- Crimson Mode-->
+    <string name="crimson_settings_title"><b>Crimson Mode</b></string>
+    
     <!-- Navigation bar -->
     <string name="navbar_enable_bar">Enable navigation bar</string>
     <string name="navbar_enable_bar_summary">Enable the navigation bar</string>
@@ -220,7 +223,7 @@
     <string name="shortcut_action_help_shortcut">shortcut</string>
     <string name="shortcut_action_help_button">button</string>
     <string name="shortcut_action_help_icon">, while selecting the icon will bring up customization options</string>
-    <string name="shortcut_action_help_main">To add a %1$s, select the Add icon.  Once a %1$s is added, selecting the row will change the target%2$s\n\nTo remove a %1$s, swipe the row horizontally left or right.  Re-order a %1$s in the list by vertically dragging the anchor on the left.\n\nTo clear or reset to defaults, select the Reset icon.</string>
+    <string name="shortcut_action_help_main">To add a %1$s, select the Add icon. Once a %1$s is added, selecting the row will change the target%2$s\n\nTo remove a %1$s, swipe the row horizontally left or right. Re-order a %1$s in the list by vertically dragging the anchor on the left.\n\nTo clear or reset to defaults, select the Reset icon.</string>
     <string name="shortcut_action_help_delete_last_entry">Removing every %1$s in the list will disable the feature entirely.</string>
     <string name="shortcut_action_help">Help</string>
 
@@ -367,11 +370,11 @@
     <string name="recent_long_press_power_menu">Power menu</string>
    
     <!-- QS Power menu -->
-    <string name="title_tile_power">Power Menu</string>   
+    <string name="title_tile_power">Power Menu</string>
     
     <!-- OnClick Fliptile animation -->
     <string name="flip_qs_tiles_title">Flip tiles</string>
-    <string name="flip_qs_tiles_summary">Flips the tiles on touch</string> 
+    <string name="flip_qs_tiles_summary">Flips the tiles on touch</string>
     
     <!-- QuickSettings style options -->
     <string name="quicksettings_tiles_style">Style</string>
@@ -382,7 +385,7 @@
     <string name="quick_tiles_alpha_title">Tiles background transparency</string>
     <string name="qs_style_reset_message">Reset all colors to default?</string>
 
-	<!-- Wakelock blocker -->
+<!-- Wakelock blocker -->
     <string name="wakelock_blocker">Wakelock Blocker</string>
     <string name="wakelock_blocker_title">Enable</string>
     <string name="wakelock_blocker_summary">Activate blocking for checked wakelocks</string>
@@ -392,11 +395,11 @@
     <string name="wakelock_blocker_warning_title">Proceed with Caution</string>
     <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data</string>
 
-	<!-- Volume pane timeout -->
+<!-- Volume pane timeout -->
     <string name="volume_panel_timeout_title">Volume panel Timeout</string>
     <string name="volume_panel_timeout_summary">Time until the volume panel to hide</string>
 
-    <!-- SlimSizer  -->
+    <!-- SlimSizer -->
     <string name="listsystem">list</string>
     <string name="sizer_title">System App Remover</string>
     <string name="caution">Caution!</string>
