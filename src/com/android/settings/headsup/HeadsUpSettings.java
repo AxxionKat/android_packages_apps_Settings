@@ -24,19 +24,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -72,16 +67,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
 
     private Switch mActionBarSwitch;
     private HeadsUpEnabler mHeadsUpEnabler;
-
-    private ViewGroup mPrefsContainer;
-    private View mDisabledText;
-
-    private ContentObserver mSettingsObserver = new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            updateEnabledState();
-        }
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,19 +121,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.headsup_fragment, container, false);
-        mPrefsContainer = (ViewGroup) v.findViewById(R.id.prefs_container);
-        mDisabledText = v.findViewById(R.id.disabled_text);
-
-        View prefs = super.onCreateView(inflater, mPrefsContainer, savedInstanceState);
-        mPrefsContainer.addView(prefs);
-
-        return v;
-    }
-
-    @Override
     public void onDestroyView() {
         getActivity().getActionBar().setCustomView(null);
         super.onDestroyView();
@@ -164,11 +136,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
         getListView().setOnItemLongClickListener(this);
         getActivity().invalidateOptionsMenu();
 
-        getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.HEADS_UP_NOTIFICATION),
-                true, mSettingsObserver);
-        updateEnabledState();
-
         // If running on a phone, remove padding around container
         // and the preference listview
         if (!Utils.isTablet(getActivity())) {
@@ -183,7 +150,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
         if (mHeadsUpEnabler != null) {
             mHeadsUpEnabler.pause();
         }
-        getContentResolver().unregisterContentObserver(mSettingsObserver);
     }
 
     /**
@@ -398,13 +364,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
             }
         }
         Settings.System.putString(getContentResolver(), setting, value);
-    }
-
-    private void updateEnabledState() {
-        boolean enabled = Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_NOTIFICATION, 0) != 0;
-        mPrefsContainer.setVisibility(enabled ? View.VISIBLE : View.GONE);
-        mDisabledText.setVisibility(enabled ? View.GONE : View.VISIBLE);
     }
 
     @Override
