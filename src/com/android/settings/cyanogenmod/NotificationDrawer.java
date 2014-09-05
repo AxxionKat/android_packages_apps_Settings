@@ -17,7 +17,6 @@
 package com.android.settings.cyanogenmod;
 
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -33,15 +32,12 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
     private static final String UI_COLLAPSE_BEHAVIOUR = "notification_drawer_collapse_on_dismiss";
 
     private ListPreference mCollapseOnDismiss;
-    private Preference mHeadsUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.notification_drawer);
-
-        mHeadsUp = findPreference(Settings.System.HEADS_UP_NOTIFICATION);
 
         // Notification drawer
         int collapseBehaviour = Settings.System.getInt(getContentResolver(),
@@ -51,16 +47,6 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
         mCollapseOnDismiss.setValue(String.valueOf(collapseBehaviour));
         mCollapseOnDismiss.setOnPreferenceChangeListener(this);
         updateCollapseBehaviourSummary(collapseBehaviour);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        boolean headsUpEnabled = Settings.System.getInt(
-                getContentResolver(), Settings.System.HEADS_UP_NOTIFICATION, 0) == 1;
-        mHeadsUp.setSummary(headsUpEnabled
-                ? R.string.summary_heads_up_enabled : R.string.summary_heads_up_disabled);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {

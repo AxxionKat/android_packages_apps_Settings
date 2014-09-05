@@ -32,9 +32,9 @@
             android:fragment="com.android.settings.quicksettings.QuickSettings"
             android:title="@string/quick_settings_panel_title" />
 
-    <Preference
-            android:key="heads_up_enabled"
-            android:fragment="com.android.settings.headsup.HeadsUpSettings"
+    <PreferenceScreen
+            android:key="heads_up"
+            android:fragment="com.android.settings.headsup.HeadsUpDoNotDisturbSettings"
             android:title="@string/category_heads_up" />
 
     <PreferenceCategory
