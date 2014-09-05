@@ -16,6 +16,8 @@
 
 package com.android.settings;
 
+import com.android.settings.TRDSEnabler;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
@@ -174,6 +176,7 @@ public class Settings extends PreferenceActivity
     private Header mCurrentHeader;
     private Header mParentHeader;
     private boolean mInLocalHeaderSwitch;
+    private static Switch mTRDSSwitch;
 
     // Show only these settings for restricted users
     private int[] SETTINGS_FOR_RESTRICTED = {
@@ -1001,6 +1004,9 @@ public class Settings extends PreferenceActivity
         private final ProfileEnabler mProfileEnabler;
         private final LocationEnabler mLocationEnabler;
         private final VoiceWakeupEnabler mVoiceWakeupEnabler;
+        private final TRDSEnabler mTRDSEnabler;
+        private final TRDSEnabler mTRDSEnabler;
+        
         private AuthenticatorHelper mAuthHelper;
         private DevicePolicyManager mDevicePolicyManager;
 
@@ -1016,7 +1022,9 @@ public class Settings extends PreferenceActivity
         private LayoutInflater mInflater;
 
         static int getHeaderType(Header header) {
-            if (header.fragment == null && header.intent == null) {
+
+if (header.fragment == null && header.intent == null && header.id != R.id.trds_settings) {
+
                 return HEADER_TYPE_CATEGORY;
             } else if (header.id == R.id.wifi_settings
                     || header.id == R.id.bluetooth_settings
@@ -1024,6 +1032,8 @@ public class Settings extends PreferenceActivity
                     || header.id == R.id.profiles_settings
                     || header.id == R.id.voice_wakeup_settings
                     || header.id == R.id.location_settings) {
+                    || header.id == R.id.theme_settings)
+                    || header.id == R.id.trds_settings) {
                 return HEADER_TYPE_SWITCH;
             } else if (header.id == R.id.security_settings) {
                 return HEADER_TYPE_BUTTON;
@@ -1074,6 +1084,7 @@ public class Settings extends PreferenceActivity
             mLocationEnabler = new LocationEnabler(context, new Switch(context));
             mVoiceWakeupEnabler = new VoiceWakeupEnabler(context, new Switch(context));
             mDevicePolicyManager = dpm;
+            mTRDSEnabler = new TRDSEnabler(context, new Switch(context));
         }
 
         @Override
@@ -1234,6 +1245,8 @@ public class Settings extends PreferenceActivity
             mProfileEnabler.resume();
             mLocationEnabler.resume();
             mVoiceWakeupEnabler.resume();
+            mThemeEnabler.resume();
+            mTRDSEnabler.resume();
         }
 
         public void pause() {
@@ -1259,6 +1272,9 @@ public class Settings extends PreferenceActivity
             highlightHeader((int) mLastHeader.id);
         } else {
             mLastHeader = header;
+        }
+        if (header.id == R.id.trds_settings) {
+            mTRDSSwitch.toggle();
         }
     }
 
