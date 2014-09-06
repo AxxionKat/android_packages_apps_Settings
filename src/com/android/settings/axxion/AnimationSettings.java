@@ -16,29 +16,20 @@
 
 package com.android.settings.axxion;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.RemoteException;
-import android.os.ServiceManager;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
-import android.util.Log;
-import android.view.IWindowManager;
-import android.view.WindowManagerGlobal;
+import android.widget.Toast;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.Utils;
 
-public class AnimationSettings extends SettingsPreferenceFragment {
+public class AnimationSettings extends SettingsPreferenceFragment 
+        implements OnPreferenceChangeListener {
 
     private static final String TAG = "AnimationSettings";      
-
     private static final String KEY_TOAST_ANIMATION = "toast_animation";
 
     ListPreference mToastAnimation;
@@ -47,8 +38,7 @@ public class AnimationSettings extends SettingsPreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.animation_settings);                
-    }    
+        addPreferencesFromResource(R.xml.animation_settings);
 
         // Toast Animations
         mToastAnimation = (ListPreference)findPreference(KEY_TOAST_ANIMATION);
@@ -56,14 +46,16 @@ public class AnimationSettings extends SettingsPreferenceFragment {
         mToastAnimation.setValueIndex(CurrentToastAnimation);
         mToastAnimation.setSummary(mToastAnimation.getEntries()[CurrentToastAnimation]);
         mToastAnimation.setOnPreferenceChangeListener(this);
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mToastAnimation) {
+            int index = mToastAnimation.findIndexOfValue((String) newValue);
+            Settings.System.putString(getContentResolver(), Settings.System.TOAST_ANIMATION, (String) newValue);
+            mToastAnimation.setSummary(mToastAnimation.getEntries()[index]);
+            Toast.makeText(mContext, "Toast Test", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 }
