@@ -10,6 +10,7 @@
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>    
     <string name="note">NOTE</string>
+    <string name="attention">Attention!</string>
         
     <!-- Halo -->
     <string name="halo_settings_title">Halo</string>
@@ -104,6 +105,8 @@
     <string name="navbar_dimensions_reset_message">Reset all dimensions entries to default?</string>
     <string name="navigation_bar_height_title">Navigation bar height</string>
     <string name="navigation_bar_height_summary">Navigation bar height while in portrait</string>
+    <string name="navigation_bar_height_landscape_title">Navigation bar landscape height</string>
+    <string name="navigation_bar_height_landscape_summary">Navigation bar landscape height while in portrait</string>    
     <string name="navigation_bar_width_title">Navigation bar width</string>
     <string name="navigation_bar_width_summary">Navigation bar height if the bar is along a side</string>
     <string name="navigation_bar_size_42_dp_default">42 dp (default)</string>
@@ -115,6 +118,23 @@
     <string name="navigation_bar_size_40_dp">40 dp</string>
     <string name="navigation_bar_size_42_dp">42 dp</string>
     <string name="navigation_bar_size_0_dp">0 dp (off)</string>
+    <string name="add_button">Add button</string>
+    <string name="navbar_tab_arrange">Rearrange</string>
+    <string name="navbar_tab_settings">Settings</string>
+    <string name="toggles_arrange_instructions">Rearrange by dragging by the handle on the right. Remove by swiping.</string>
+    <string name="action_short">Short action</string>
+    <string name="action_long">Long action</string>
+    <string name="action_double">Double tap action</string>
+    <string name="action_icon">Custom icon</string>
+    <string name="choose_action_title">Choose action</string>
+    <string name="choose_action_short_title">Choose short action</string>
+    <string name="menu_button_location">Menu button location</string>
+    <string name="menu_location_right">Right</string>
+    <string name="menu_location_left">Left</string>
+    <string name="menu_location_both">Both</string>
+
+    <string name="navigation_bar_menu_force">Force show menu</string>
+    <string name="navigation_bar_menu_force_summary">Always show the menu button(s)</string>
 
     <!-- Ability to disable hardware keys via nav bar settings -->
     <string name="hw_keys_title">Hardware Keys</string>
@@ -665,8 +685,12 @@
     <string name="shortcut_action_menu">Menu</string>
     <string name="shortcut_action_menu_big">Menu</string>
     <string name="shortcut_action_ime">Open IME Switcher</string>
+    <string name="shortcut_action_immersive_mode">Immersive Mode</string>
     <string name="shortcut_action_kill">Kill app</string>
     <string name="shortcut_action_power_menu">Power menu</string>
+    <string name="shortcut_action_ring_vib">Ring/Vib</string>
+    <string name="shortcut_action_ring_silent">Ring/Silent</string>
+    <string name="shortcut_action_ring_vib_silent">Ring/Vib/Silent</string>    
     <string name="shortcut_action_power">Screen Off</string>
     <string name="shortcut_action_notifications">Notifications</string>
     <string name="shortcut_action_none">None</string>

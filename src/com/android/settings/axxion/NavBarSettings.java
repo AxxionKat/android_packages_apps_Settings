@@ -42,7 +42,6 @@ public class NavBarSettings extends SettingsPreferenceFragment  implements
     private static final String CATEGORY_EXPANDED_DESKTOP = "expanded_desktop_category";
     private static final String CATEGORY_NAVBAR = "navigation_bar";
     private static final String KEY_SCREEN_GESTURE_SETTINGS = "touch_screen_gesture_settings";
-    private static final String KEY_NAVIGATION_BAR_LEFT = "navigation_bar_left";
 
     // Enable/disable nav bar	
     private static final String ENABLE_NAVIGATION_BAR = "enable_nav_bar";
@@ -73,9 +72,6 @@ public class NavBarSettings extends SettingsPreferenceFragment  implements
 
         // Expanded desktop
         mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
-
-        // Navigation bar left
-        mNavigationBarLeftPref = (CheckBoxPreference) findPreference(KEY_NAVIGATION_BAR_LEFT);
         
         Utils.updatePreferenceToSpecificActivityFromMetaDataOrRemove(getActivity(),
                 getPreferenceScreen(), KEY_SCREEN_GESTURE_SETTINGS);

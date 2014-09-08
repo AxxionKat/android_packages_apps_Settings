@@ -88,7 +88,6 @@ import com.android.settings.bluetooth.BluetoothEnabler;
 import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.ButtonSettings;
 import com.android.settings.cyanogenmod.LockscreenInterface;
-import com.android.settings.cyanogenmod.NavBar;
 import com.android.settings.cyanogenmod.NavRing;
 import com.android.settings.cyanogenmod.PerformanceSettings;
 import com.android.settings.cyanogenmod.SystemUiSettings;
@@ -671,7 +670,6 @@ public class Settings extends PreferenceActivity
                 PowerUsageSummary.class.getName().equals(fragmentName) ||
                 ThemeSettings.class.getName().equals(fragmentName) ||
                 ManageApplications.class.getName().equals(fragmentName) ||
-                NavBar.class.getName().equals(fragmentName) ||
                 NavRing.class.getName().equals(fragmentName) ||
                 PaymentSettings.class.getName().equals(fragmentName) ||
                 WifiDisplaySettings.class.getName().equals(fragmentName)) {
