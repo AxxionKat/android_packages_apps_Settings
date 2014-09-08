@@ -484,11 +484,46 @@
         <item>0</item>
     </string-array>
 
+<<<<<<< HEAD:res/values/axxion_arrays.xml
     <string-array name="enabled_networks_cdma_lte_choices" translatable="false">
         <item>@string/network_lte</item>
         <item>@string/network_3G</item>
         <item>@string/network_1x</item>
         <item>@string/network_global</item>
+=======
+    <string-array name="navbar_dialog_entries" translatable="false">
+        <item>@string/action_short</item>
+        <item>@string/action_long</item>
+        <item>@string/action_double</item>
+        <item>@string/action_icon</item>
+    </string-array>
+
+    <string-array name="navbar_dialog_values" translatable="false">
+        <item>**short**</item>
+        <item>**long**</item>
+        <item>**double**</item>
+        <item>**icon**</item>
+    </string-array>
+
+    <string-array name="navigation_bar_menu_entries" translatable="false">
+        <item>@string/menu_location_right</item>
+        <item>@string/menu_location_left</item>
+        <item>@string/menu_location_both</item>
+    </string-array>
+
+    <string-array name="navigation_bar_menu_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- Network stats -->
+    <string-array name="entries_status_bar_network_stats_update">
+        <item>&#189; second</item>
+        <item>1 second</item>
+        <item>2 seconds</item>
+        <item>5 seconds</item>
+>>>>>>> 165b25e... RC: add nav bar config:res/values/pac_arrays.xml
     </string-array>
 
     <string-array name="enabled_networks_cdma_lte_values" translatable="false">
