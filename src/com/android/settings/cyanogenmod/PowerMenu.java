@@ -23,6 +23,7 @@ import android.os.UserManager;
 import android.preference.Preference;
 import android.provider.Settings;
 
+import com.android.internal.util.nameless.NamelessUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
@@ -59,5 +60,6 @@ public class PowerMenu extends SettingsPreferenceFragment {
         );      
         
         findPreference(Settings.System.POWER_MENU_NAV_BAR_ENABLED).setEnabled(true);
+        
     }
 }

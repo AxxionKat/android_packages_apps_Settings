@@ -48,5 +48,4 @@
         android:fragment="com.android.settings.axxion.ProgressBar"
         android:title="@string/progressbar_title" />
     
-    </PreferenceCategory>
 </PreferenceScreen>

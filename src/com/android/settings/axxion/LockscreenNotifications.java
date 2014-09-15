@@ -1,4 +1,4 @@
-package com.android.settings.axxion;
+package com.android.settings.cyanogenmod;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -12,6 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
@@ -24,6 +25,8 @@ import android.view.WindowManager;
 
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
+import com.android.settings.axxion.AppMultiSelectListPreference;
+import com.android.settings.axxion.NumberPickerPreference;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -51,7 +54,6 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private static final String KEY_OFFSET_TOP = "offset_top";
     private static final String KEY_CATEGORY_GENERAL = "category_general";
     private static final String KEY_EXCLUDED_APPS = "excluded_apps";
-    private static final String KEY_NOTIFICATION_COLOR = "notification_color";
 
     private static final String PEEK_APPLICATION = "com.jedga.peek";
 
@@ -72,7 +74,6 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private CheckBoxPreference mPrivacyMode;
     private SeekBarPreference mOffsetTop;
     private AppMultiSelectListPreference mExcludedAppsPref;
-    private ColorPickerPreference mNotificationColor;
 
     private PackageStatusReceiver mPackageStatusReceiver;
     private IntentFilter mIntentFilter;
@@ -122,7 +123,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
 
         mPocketMode = (CheckBoxPreference) prefs.findPreference(KEY_POCKET_MODE);
         mPocketMode.setChecked(Settings.System.getInt(cr,
-                    Settings.System.LOCKSCREEN_NOTIFICATIONS_POCKET_MODE, 1) == 1);
+                    Settings.System.LOCKSCREEN_NOTIFICATIONS_POCKET_MODE, 0) == 1);
         mPocketMode.setEnabled(mLockscreenNotifications.isChecked());
 
         mShowAlways = (CheckBoxPreference) prefs.findPreference(KEY_SHOW_ALWAYS);
@@ -189,16 +190,6 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         mNotificationsHeight.setMaxValue(max);
         mNotificationsHeight.setOnPreferenceChangeListener(this);
         mNotificationsHeight.setEnabled(mLockscreenNotifications.isChecked());
-
-        mNotificationColor = (ColorPickerPreference) prefs.findPreference(KEY_NOTIFICATION_COLOR);
-        mNotificationColor.setAlphaSliderEnabled(true);
-        int color = Settings.System.getInt(cr,
-                Settings.System.LOCKSCREEN_NOTIFICATIONS_COLOR, 0x55555555);
-        String hexColor = String.format("#%08x", (0xffffffff & color));
-        mNotificationColor.setSummary(hexColor);
-        mNotificationColor.setDefaultValue(color);
-        mNotificationColor.setNewPreviewColor(color);
-        mNotificationColor.setOnPreferenceChangeListener(this);
 
         mExcludedAppsPref = (AppMultiSelectListPreference) findPreference(KEY_EXCLUDED_APPS);
         Set<String> excludedApps = getExcludedApps();
@@ -331,14 +322,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             ((WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
             int max = Math.round((float)displaySize.y * (1f - (mOffsetTop.getProgress() / 100f)) /
                     (float)mContext.getResources().getDimensionPixelSize(R.dimen.notification_row_min_height));
-            mNotificationsHeight.setMaxValue(max)
-        } else if (pref == mNotificationColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(value)));
-            pref.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.LOCKSCREEN_NOTIFICATIONS_COLOR, intHex);
+            mNotificationsHeight.setMaxValue(max);
         } else if (pref == mPeekPickupTimeout) {
             int index = mPeekPickupTimeout.findIndexOfValue((String) value);
             int peekPickupTimeout = Integer.valueOf((String) value);

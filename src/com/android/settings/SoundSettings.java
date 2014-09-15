@@ -51,7 +51,6 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.VolumePanel;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,11 +58,12 @@ import android.view.MenuInflater;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
+import android.util.Log;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
-import com.android.settings.axxion.SeekBarPreferenceCHOS;
+import com.android.settings.axxion.SeekBarPreference;
 
 public class SoundSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -104,16 +104,17 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_POWER_NOTIFICATIONS = "power_notifications";
     private static final String KEY_POWER_NOTIFICATIONS_VIBRATE = "power_notifications_vibrate";
     private static final String KEY_POWER_NOTIFICATIONS_RINGTONE = "power_notifications_ringtone";
-    private static final String KEY_VOLUME_PANEL_TIMEOUT = "volume_panel_timeout";
 
     private static final String RING_MODE_NORMAL = "normal";
     private static final String RING_MODE_VIBRATE = "vibrate";
     private static final String RING_MODE_MUTE = "mute";
 
+    private static final String KEY_VIBRATION_DURATION = "vibration_duration";
+    private static final String KEY_VIBRATION_MULTIPLIER = "vibrator_multiplier";
+
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
-            KEY_EMERGENCY_TONE, KEY_INCREASING_RING, KEY_VIBRATE,
-            KEY_VOLUME_ADJUST_SOUNDS
+            KEY_EMERGENCY_TONE, KEY_INCREASING_RING, KEY_VIBRATE
     };
 
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
@@ -146,9 +147,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mPowerSoundsVibrate;
     private Preference mPowerSoundsRingtone;
 
-<<<<<<< HEAD
-    private SeekBarPreferenceCHOS mVolumePanelTimeout;
-=======
     private SeekBarPreference mVibrationDuration;
     private ListPreference mVibrationMultiplier;
 
@@ -159,7 +157,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
     private Vibrator mVib;
     private boolean mFirstVibration = false;
->>>>>>> ca526af... Settings: Volume panel background color && transparency [1/2]
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -195,6 +192,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        mVib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         addPreferencesFromResource(R.xml.sound_settings);
 
         if (TelephonyManager.PHONE_TYPE_CDMA != activePhoneType) {
@@ -210,15 +209,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mVolumeOverlay.setValue(Integer.toString(volumeOverlay));
         mVolumeOverlay.setSummary(mVolumeOverlay.getEntry());
 
-<<<<<<< HEAD
-        // Volume panel timeout
-        mVolumePanelTimeout = (SeekBarPreferenceCHOS) findPreference(KEY_VOLUME_PANEL_TIMEOUT);
-        int statusVolumePanelTimeout = Settings.System.getInt(resolver,
-                Settings.System.VOLUME_PANEL_TIMEOUT, 3000);
-        mVolumePanelTimeout.setValue(statusVolumePanelTimeout / 1000);
-        mVolumePanelTimeout.setOnPreferenceChangeListener(this);
-
-=======
         // Volume panel background color
         mVolumePanelBgColor =
                 (ColorPickerPreference) findPreference(VOLUME_PANEL_BG_COLOR);
@@ -234,7 +224,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mVolumePanelBgColor.setNewPreviewColor(intColor);
         setHasOptionsMenu(true);
         
->>>>>>> ca526af... Settings: Volume panel background color && transparency [1/2]
         mRingMode = (ListPreference) findPreference(KEY_RING_MODE);
         if (!getResources().getBoolean(R.bool.has_silent_mode)) {
             getPreferenceScreen().removePreference(mRingMode);
@@ -249,7 +238,14 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         }
 
         mQuietHours = (PreferenceScreen) findPreference(KEY_QUIET_HOURS);
-        updateQuietHoursSummary();
+        if (Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_ENABLED, 0) == 1) {
+            mQuietHours.setSummary(getString(R.string.quiet_hours_active_from) + " " +
+                    returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_START))
+                    + " " + getString(R.string.quiet_hours_active_to) + " " +
+                    returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_END)));
+        } else {
+            mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
+        }
 
         mSoundEffects = (CheckBoxPreference) findPreference(KEY_SOUND_EFFECTS);
 
@@ -257,11 +253,28 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(findPreference(KEY_VOLUME_ADJUST_SOUNDS));
         }
 
+        int userMillis = Settings.System.getInt(resolver,
+                Settings.System.MINIMUM_VIBRATION_DURATION, 0);
+        mVibrationDuration = (SeekBarPreference) findPreference(KEY_VIBRATION_DURATION);
+        mVibrationDuration.setInitValue(userMillis);
+        mVibrationDuration.setInterval(1);
+        mVibrationDuration.displaySameValue(true);
+        mVibrationDuration.zeroDefault(true);
+        mVibrationDuration.isMilliseconds(true);
+        mVibrationDuration.setProperty(Settings.System.MINIMUM_VIBRATION_DURATION);
+        mVibrationDuration.setOnPreferenceChangeListener(this);
+
+        mVibrationMultiplier = (ListPreference) findPreference(KEY_VIBRATION_MULTIPLIER);
+        String currentValue = Float.toString(Settings.System.getFloat(getActivity()
+                .getContentResolver(), Settings.System.VIBRATION_MULTIPLIER, 1));
+        mVibrationMultiplier.setValue(currentValue);
+        mVibrationMultiplier.setSummary(currentValue);
+        mVibrationMultiplier.setOnPreferenceChangeListener(this);
+
         mRingtonePreference = findPreference(KEY_RINGTONE);
         mNotificationPreference = findPreference(KEY_NOTIFICATION_SOUND);
 
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (vibrator == null || !vibrator.hasVibrator()) {
+        if (mVib == null || !mVib.hasVibrator()) {
             removePreference(KEY_VIBRATE);
             removePreference(KEY_HAPTIC_FEEDBACK);
             removePreference(KEY_VIBRATION_INTENSITY);
@@ -322,7 +335,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mPowerSoundsVibrate = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
         mPowerSoundsVibrate.setChecked(Settings.Global.getInt(resolver,
                 Settings.Global.POWER_NOTIFICATIONS_VIBRATE, 0) != 0);
-        if (vibrator == null || !vibrator.hasVibrator()) {
+        if (mVib == null || !mVib.hasVibrator()) {
             removePreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
         }
 
@@ -437,22 +450,20 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     // updateState in fact updates the UI to reflect the system state
     private void updateState(boolean force) {
         if (getActivity() == null) return;
+        ContentResolver resolver = getContentResolver();
 
         mRingMode.setValue(getPhoneRingModeSettingValue());
-        mRingMode.setSummary(mRingMode.getEntry());
-        updateQuietHoursSummary();
-    }
 
-    private void updateQuietHoursSummary() {
-        ContentResolver resolver = getContentResolver();
         if (Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_ENABLED, 0) == 1) {
-            String start = Settings.System.getString(resolver, Settings.System.QUIET_HOURS_START);
-            String end = Settings.System.getString(resolver, Settings.System.QUIET_HOURS_END);
-            mQuietHours.setSummary(getString(R.string.quiet_hours_active_period,
-                    returnTime(start), returnTime(end)));
+            mQuietHours.setSummary(getString(R.string.quiet_hours_active_from) + " " +
+                    returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_START))
+                    + " " + getString(R.string.quiet_hours_active_to) + " " +
+                    returnTime(Settings.System.getString(resolver, Settings.System.QUIET_HOURS_END)));
         } else {
             mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
         }
+
+        mRingMode.setSummary(mRingMode.getEntry());
     }
 
     private void updateRingtoneName(int type, Preference preference, int msg) {
@@ -568,10 +579,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.MODE_VOLUME_OVERLAY, value);
             mVolumeOverlay.setSummary(mVolumeOverlay.getEntries()[index]);
-<<<<<<< HEAD
-        } else if (preference == mVolumePanelTimeout) {
-            int volumePanelTimeout = (Integer) objValue;
-=======
         } else if (preference == mVolumePanelBgColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(objValue)));
@@ -587,9 +594,18 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             return true;    
         } else if (preference == mVibrationDuration) {
             int value = Integer.parseInt((String) objValue);
->>>>>>> ca526af... Settings: Volume panel background color && transparency [1/2]
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.VOLUME_PANEL_TIMEOUT, volumePanelTimeout * 1000);
+                    Settings.System.MINIMUM_VIBRATION_DURATION, value);
+            if (mFirstVibration && (value % 5 == 0) && mVib != null) {
+                mVib.vibrate(1);
+             }
+             mFirstVibration = true;
+        } else if (preference == mVibrationMultiplier) {
+            String currentValue = (String) objValue;
+            float val = Float.parseFloat(currentValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                    Settings.System.VIBRATION_MULTIPLIER, val);
+            mVibrationMultiplier.setSummary(currentValue);
         }
 
         return true;
@@ -752,4 +768,3 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         return ab.create();
     }
 }
-
