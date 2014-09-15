@@ -1,20 +1,7 @@
-/* Copyright (C) 2013-2014 Dokdo Project - Gwon Hyeok
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.android.settings.axxion;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
@@ -23,15 +10,21 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
 import com.android.settings.R;
 
-public class SeekBarPreference extends Preference implements OnSeekBarChangeListener {
+import android.provider.Settings;
+
+public class SeekBarPreference extends Preference
+        implements OnSeekBarChangeListener {
+
+    public static int maximum = 100;
+    public int interval = 5;
 
     private String property;
 
-    private static final String ANDROIDNS = "http://schemas.android.com/apk/res/android";
-    private static final String SETTINGS = "http://schemas.android.com/apk/res/com.android.settings";
-    private static final int DEFAULT_VALUE = 50;
+    private TextView monitorBox;
+    private SeekBar bar;
 
     int defaultValue = 60;
     int mSetDefault = -1;
@@ -39,6 +32,9 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     int mMinimum = -1;
     boolean mDisableText = false;
     boolean mDisablePercentageValue = false;
+    boolean mZeroDefault = false;
+    boolean mIsMilliSeconds = false;
+    boolean mSameValue = false;
 
     private OnPreferenceChangeListener changer;
 
@@ -46,78 +42,96 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
         super(context, attrs);
     }
 
-    public SeekBarPreference(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        initPreference(context, attrs);
+    @Override
+    protected View onCreateView(ViewGroup parent) {
+
+        View layout = View.inflate(getContext(), R.layout.slider_preference, null);
+
+        monitorBox = (TextView) layout.findViewById(R.id.monitor_box);
+        bar = (SeekBar) layout.findViewById(R.id.seek_bar);
+        int progress;
+        try{
+            float setting = Settings.System.getFloat(
+                    getContext().getContentResolver(), property);
+            progress = (int) (mSameValue ? setting : (setting * 100));
+        } catch (Exception e) {
+            progress = defaultValue;
+        }
+        bar.setOnSeekBarChangeListener(this);
+        bar.setProgress(progress);
+        if (progress == 0 && mZeroDefault) {
+            monitorBox.setText(R.string.default_string);
+        } else {
+            if (mIsMilliSeconds) {
+                monitorBox.setText(progress + " ms");
+            } else if (!mDisablePercentageValue) {
+                monitorBox.setText(progress + "%");
+            }
+        }
+        return layout;
     }
 
     public void setInitValue(int progress) {
         defaultValue = progress;
         if (bar!=null) {
             bar.setProgress(progress);
-            if (!mDisablePercentageValue) {
+            if (progress == 0 && mZeroDefault) {
+                monitorBox.setText(R.string.default_string);
+            } else {
+                if (mIsMilliSeconds) {
+                    monitorBox.setText(progress + " ms");
+                } else if (!mDisablePercentageValue) {
+                    monitorBox.setText(progress + "%");
+                }
+            }
+        }
+    }
+
+    @Override
+    protected Object onGetDefaultValue(TypedArray a, int index) {
+        // TODO Auto-generated method stub
+        return super.onGetDefaultValue(a, index);
+    }
+
+    @Override
+    public void setOnPreferenceChangeListener(
+                OnPreferenceChangeListener onPreferenceChangeListener) {
+        changer = onPreferenceChangeListener;
+        super.setOnPreferenceChangeListener(onPreferenceChangeListener);
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        progress = Math.round(((float) progress) / interval) * interval;
+        seekBar.setProgress(progress);
+
+        if (progress == 0 && mZeroDefault) {
+            monitorBox.setText(R.string.default_string);
+        } else if (!mDisableText) {
+            if (mIsMilliSeconds) {
+                monitorBox.setText(progress + " ms");
+            } else if (!mDisablePercentageValue) {
                 monitorBox.setText(progress + "%");
             }
         }
+        changer.onPreferenceChange(this, Integer.toString(progress));
     }
 
-    private String getAttributeStringValue(AttributeSet attrs, String namespace, String name, String defaultValue) {
-        String value = attrs.getAttributeValue(namespace, name);
-        if(value == null)
-            value = defaultValue;
-
-        return value;
-    }
-
-    @Override
-    public void onDependencyChanged(Preference dependency, boolean disableDependent) {
-        super.onDependencyChanged(dependency, disableDependent);
-        this.setShouldDisableView(true);
-        if (mTitle != null)
-            mTitle.setEnabled(!disableDependent);
-        if (mSeekBar != null)
-            mSeekBar.setEnabled(!disableDependent);
-    }
-
-    @Override
-    protected View onCreateView(ViewGroup parent){
-        RelativeLayout layout =  null;
-        try {
-            LayoutInflater mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = (RelativeLayout)mInflater.inflate(R.layout.seek_bar_preference, parent, false);
-            mTitle = (TextView) layout.findViewById(android.R.id.title);
-        }
-        catch(Exception e)
-        {
-            Log.e(TAG, "Error creating seek bar preference", e);
-        }
-        return layout;
-    }
-
-    @Override
-    public void onBindView(View view) {
-        super.onBindView(view);
-        try
-        {
-            // move our seekbar to the new view we've been given
-            ViewParent oldContainer = mSeekBar.getParent();
-            ViewGroup newContainer = (ViewGroup) view.findViewById(R.id.seekBarPrefBarContainer);
-
-            if (oldContainer != newContainer) {
-                // remove the seekbar from the old view
-                if (oldContainer != null) {
-                    ((ViewGroup) oldContainer).removeView(mSeekBar);
+    public void setValue(int progress){
+        if (bar!=null) {
+            bar.setProgress(progress);
+            if (progress == 0 && mZeroDefault) {
+                monitorBox.setText(R.string.default_string);
+            } else {
+                if (mIsMilliSeconds) {
+                    monitorBox.setText(progress + " ms");
+                } else if (!mDisablePercentageValue) {
+                    monitorBox.setText(progress + "%");
                 }
-                // remove the existing seekbar (there may not be one) and add ours
-                newContainer.removeAllViews();
-                newContainer.addView(mSeekBar, ViewGroup.LayoutParams.FILL_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
             }
+            changer.onPreferenceChange(this, Integer.toString(progress));
         }
-        catch(Exception ex) {
-            Log.e(TAG, "Error binding view: " + ex.toString());
-        }
-        updateView(view);
     }
 
     public void disablePercentageValue(boolean disable) {
@@ -130,6 +144,22 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
     
     public void disableText(boolean disable) {
         mDisableText = disable;
+    }
+
+    public void setInterval(int inter) {
+        interval = inter;
+    }
+
+    public void displaySameValue(boolean same) {
+        mSameValue = same;
+    }
+
+    public void zeroDefault(boolean displayDefault) {
+        mZeroDefault = displayDefault;
+    }
+
+    public void isMilliseconds(boolean millis) {
+        mIsMilliSeconds = millis;
     }
 
     @Override

@@ -99,7 +99,7 @@ import com.android.settings.cyanogenmod.superuser.PolicyNativeFragment;
 import com.android.settings.deviceinfo.Memory;
 import com.android.settings.deviceinfo.UsbSettings;
 import com.android.settings.fuelgauge.PowerUsageSummary;
-import com.android.settings.headsup.HeadsUpSettings;
+import com.android.settings.axxion.HeadsUpSettings;
 import com.android.settings.inputmethod.InputMethodAndLanguageSettings;
 import com.android.settings.inputmethod.KeyboardLayoutPickerFragment;
 import com.android.settings.inputmethod.SpellCheckersSettings;
@@ -207,7 +207,6 @@ public class Settings extends PreferenceActivity
             R.id.home_settings,
             R.id.interface_section,
             R.id.status_bar_settings,
-            R.id.notification_bar_settings,
             R.id.lock_screen_settings,
             R.id.privacy_settings_cyanogenmod,
             R.id.button_settings
@@ -695,8 +694,7 @@ public class Settings extends PreferenceActivity
             Header header = target.get(i);
             // Ids are integers, so downcasting
             int id = (int) header.id;
-            if (id == R.id.operator_settings || id == R.id.manufacturer_settings
-                    || id == R.id.device_specific_gesture_settings) {
+            if (id == R.id.operator_settings || id == R.id.manufacturer_settings) {
                 Utils.updateHeaderToSpecificActivityFromMetaDataOrRemove(this, target, header);
             } else if (id == R.id.wifi_settings) {
                 // Remove WiFi Settings if WiFi service is not available.

@@ -1651,7 +1651,12 @@ public class InstalledAppDetails extends Fragment
                 setPrivacyGuard(false);
             }
         } else if (buttonView == mHaloState) {
-            setHaloState(isChecked);
+        } else if (buttonView == mFloatingBlacklist) {
+            setFloatingModeState(isChecked);
+        } else if (buttonView == mHeadsUpSwitch) {
+            mPm.setHeadsUpSetting(packageName, isChecked);
+        } else if (buttonView == mPeekBlacklist) {
+            setPeekState(isChecked);
         }
     }
 }
