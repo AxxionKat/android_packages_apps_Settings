@@ -1031,7 +1031,6 @@ if (header.fragment == null && header.intent == null && header.id != R.id.trds_s
                     || header.id == R.id.profiles_settings
                     || header.id == R.id.voice_wakeup_settings
                     || header.id == R.id.location_settings
-                    || header.id == R.id.theme_settings
                     || header.id == R.id.trds_settings) {
                 return HEADER_TYPE_SWITCH;
             } else if (header.id == R.id.security_settings) {
