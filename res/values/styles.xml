@@ -255,7 +255,7 @@
     <style name="settingSeparator">
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingBottom">2dp</item>
-        <item name="android:background">@color/setting_separator</item>
+        <item name="android:background">@android:drawable/divider_horizontal_dark</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
     </style>
