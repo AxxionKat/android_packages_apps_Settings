@@ -17,17 +17,6 @@
             table="system"
             />
 
-        <com.android.settings.pac.CheckboxSetting
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/navigation_bar_dpad_keys"
-            android:title="@string/navigation_bar_arrow_keys_title"
-            android:summary="@string/navigation_bar_arrow_keys_summary"
-            android:key="navigation_bar_dpad_keys"
-            android:defaultValue="false"
-            table="system"
-            />
-
         <com.android.settings.pac.SingleChoiceSetting
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
