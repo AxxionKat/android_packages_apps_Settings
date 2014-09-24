@@ -9,26 +9,17 @@
             android:selectable="false" />
 
     <PreferenceCategory
-        android:title="@string/notification_peek_title" >
-        
-         <CheckBoxPreference
-            android:key="notification_peek"
-            android:title="@string/notification_peek_title"
-            android:summary="@string/notification_peek_summary" />
-
-         <ListPreference
-            android:key="peek_pickup_timeout"
-            android:title="@string/peek_pickup_timeout_title"
-            android:entries="@array/peek_pickup_timeout_entries"
-            android:entryValues="@array/peek_pickup_timeout_values"
-            android:dependency="notification_peek" />
-
-         <ListPreference
-            android:key="peek_wake_timeout"
-            android:title="@string/peek_wake_timeout_title"
-            android:entries="@array/peek_wake_timeout_entries"
-            android:entryValues="@array/peek_wake_timeout_values"
-            android:dependency="notification_peek" />
+        android:title="@string/ad_settings_title" >
+     
+        <CheckBoxPreference
+            android:key="active_display_checkbox"
+            android:title="@string/ad_checkbox"
+            android:summary="@string/ad_checkbox_summary" />
+                    
+    <PreferenceScreen
+        android:key="@+id/active_display"
+        android:fragment="com.android.settings.axxion.ActiveDisplaySettings"
+        android:title="@string/ad_settings_title"
 
     </PreferenceCategory>
     

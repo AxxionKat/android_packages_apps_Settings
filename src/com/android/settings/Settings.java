@@ -668,21 +668,6 @@ public class Settings extends PreferenceActivity
                 PrintSettingsFragment.class.getName().equals(fragmentName) ||
                 PrintServiceSettingsFragment.class.getName().equals(fragmentName)) {
             intent.putExtra(EXTRA_UI_OPTIONS, ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
-            // Should also disable the search options here to not confuse
-            // the end user
-            intent.putExtra(EXTRA_DISABLE_SEARCH, true);
-        } else if (ApplicationSettings.class.getName().equals(fragmentName) ||
-                DataUsageSummary.class.getName().equals(fragmentName) ||
-                QuickSettingsTiles.class.getName().equals(fragmentName) ||
-                HeadsUpSettings.class.getName().equals(fragmentName) ||
-                PowerUsageSummary.class.getName().equals(fragmentName) ||
-                ThemeSettings.class.getName().equals(fragmentName) ||
-                ManageApplications.class.getName().equals(fragmentName) ||
-                NavRing.class.getName().equals(fragmentName) ||
-                PaymentSettings.class.getName().equals(fragmentName) ||
-                WifiDisplaySettings.class.getName().equals(fragmentName)) {
-            // Should force disable search options
-            intent.putExtra(EXTRA_DISABLE_SEARCH, true);
         }
         intent.setClass(this, SubSettings.class);
     }
