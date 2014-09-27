@@ -1,4 +1,4 @@
-package com.android.settings.cyanogenmod;
+package com.android.settings.axxion;
 
 import android.app.Activity;
 import android.app.ActivityManager;
