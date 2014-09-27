@@ -19,8 +19,9 @@
     <PreferenceScreen
         android:key="@+id/active_display"
         android:fragment="com.android.settings.axxion.ActiveDisplaySettings"
-        android:title="@string/ad_settings_title" />
-    
+        android:title="@string/ad_settings_title" 
+        android:dependency="active_display_checkbox" />
+        
     </PreferenceCategory>
     
     <PreferenceCategory
@@ -67,7 +68,7 @@
             android:title="@string/dismiss_all"
             android:summary="@string/dismiss_all_summary" />
 
-        <com.android.settings.cyanogenmod.AppMultiSelectListPreference
+        <com.android.settings.axxion.AppMultiSelectListPreference
             android:key="excluded_apps"
             android:persistent="false"
             android:title="@string/excluded_apps_title"
@@ -84,7 +85,7 @@
             android:max="100"
             android:defaultValue="30" />
 
-        <com.android.settings.cyanogenmod.NumberPickerPreference
+        <com.android.settings.axxion.NumberPickerPreference
             android:key="notifications_height"
             android:dialogMessage="@string/notifications_height"
             android:title="@string/notifications_height"
