@@ -21,6 +21,8 @@ import android.view.WindowManager;
 
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
+import com.android.settings.axxion.NumberPickerPreference;
+import com.android.settings.axxion.AppMultiSelectListPreference;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -45,7 +47,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private static final String KEY_CATEGORY_GENERAL = "category_general";
     private static final String KEY_EXCLUDED_APPS = "excluded_apps";
 
-    private CheckBoxPreference mActiveDisplayCheckbox
+    private CheckBoxPreference mActiveDisplayCheckbox;
     private CheckBoxPreference mLockscreenNotifications;
     private CheckBoxPreference mPocketMode;
     private CheckBoxPreference mShowAlways;
@@ -173,7 +175,8 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         boolean enabled = Settings.System.getInt(getContentResolver(),
                 Settings.System.AD_STATE, 0) == 1;
         mActiveDisplayCheckbox.setChecked(enabled);    
-
+    }
+    
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         ContentResolver cr = getActivity().getContentResolver();

@@ -128,7 +128,7 @@ public class InstalledAppDetails extends Fragment
     private Button mActivitiesButton;
     private View mScreenCompatSection;
     private CheckBox mAskCompatibilityCB;
-    private CheckBox mPeekBlacklist, mFloatingBlacklist, mHaloState;
+    private CheckBox mFloatingBlacklist, mHaloState;
     private CheckBox mEnableCompatibilityCB;
     private boolean mCanClearData = true;
     private TextView mAppVersion;
@@ -430,12 +430,10 @@ public class InstalledAppDetails extends Fragment
     private void initBlacklistButton() {
         mBlacklistButton.setText(R.string.blacklist_button_title);
 
-        boolean allowedForPeek = true, allowedForFloating = true, allowedForHalo = true;
+        boolean allowedForFloating = true, allowedForHalo = true;
         try {
             allowedForHalo = mNotificationManager
                     .isPackageAllowedForHalo(mAppEntry.info.packageName);
-            allowedForPeek = mNotificationManager
-                    .isPackageAllowedForPeek(mAppEntry.info.packageName);
             allowedForFloating = mNotificationManager
                     .isPackageAllowedForFloatingMode(mAppEntry.info.packageName);
         } catch (android.os.RemoteException ex) {
@@ -443,8 +441,6 @@ public class InstalledAppDetails extends Fragment
         }
         mHaloState.setChecked((!allowedForHalo));
         mHaloState.setOnCheckedChangeListener(this);
-        mPeekBlacklist.setChecked(!allowedForPeek);
-        mPeekBlacklist.setOnCheckedChangeListener(this);
         mFloatingBlacklist.setChecked(!allowedForFloating);
         mFloatingBlacklist.setOnCheckedChangeListener(this);
 
@@ -580,7 +576,6 @@ public class InstalledAppDetails extends Fragment
         mBlacklistDialogView = inflater.inflate(R.layout.blacklist_dialog, null);
         mHaloState = (CheckBox) mBlacklistDialogView.findViewById(R.id.halo_state);
         mHaloState.setText((mHaloPolicyIsBlack ? R.string.app_halo_label_black : R.string.app_halo_label_white));
-        mPeekBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.peek_blacklist);
         mFloatingBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.floating_blacklist);
 
         return view;
@@ -1529,14 +1524,6 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
-    private void setPeekState(boolean state) {
-        try {
-            mNotificationManager.setPeekBlacklistStatus(mAppEntry.info.packageName, state);
-        } catch (android.os.RemoteException ex) {
-            mPeekBlacklist.setChecked(!state); // revert
-        }
-    }
-
     private void setFloatingModeState(boolean state) {
         try {
             mNotificationManager.setFloatingModeBlacklistStatus(mAppEntry.info.packageName, state);
@@ -1655,8 +1642,6 @@ public class InstalledAppDetails extends Fragment
             setFloatingModeState(isChecked);
         } else if (buttonView == mHeadsUpSwitch) {
             mPm.setHeadsUpSetting(packageName, isChecked);
-        } else if (buttonView == mPeekBlacklist) {
-            setPeekState(isChecked);
         }
     }
 }
