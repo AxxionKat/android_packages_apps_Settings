@@ -19,8 +19,8 @@
     <PreferenceScreen
         android:key="@+id/active_display"
         android:fragment="com.android.settings.axxion.ActiveDisplaySettings"
-        android:title="@string/ad_settings_title"
-
+        android:title="@string/ad_settings_title" />
+    
     </PreferenceCategory>
     
     <PreferenceCategory
