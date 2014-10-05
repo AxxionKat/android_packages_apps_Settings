@@ -38,7 +38,7 @@ import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 
 import com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference;
-import com.android.settings.axxion.NEWSeekBarPreference;
+import com.android.settings.axxion.SeekBarPreferenceCHOS;
 import com.android.settings.Utils;
 
 public class TintedSysbarSettings extends SettingsPreferenceFragment implements
@@ -55,8 +55,8 @@ public class TintedSysbarSettings extends SettingsPreferenceFragment implements
     private ListPreference mTintedStatusbar;
     private ListPreference mTintedStatusbarOption;
     private SystemSettingCheckBoxPreference mTintedStatusbarFilter;
-    private NEWSeekBarPreference mTintedStatusbarTransparency;
-    private NEWSeekBarPreference mTintedNavbarTransparency;
+    private SeekBarPreferenceCHOS mTintedStatusbarTransparency;
+    private SeekBarPreferenceCHOS mTintedNavbarTransparency;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,14 +79,14 @@ public class TintedSysbarSettings extends SettingsPreferenceFragment implements
         mTintedStatusbarFilter = (SystemSettingCheckBoxPreference) findPreference(TINTED_STATUSBAR_FILTER);
         mTintedStatusbarFilter.setEnabled(tintedStatusbar != 0);
 
-        mTintedStatusbarTransparency = (NEWSeekBarPreference) findPreference(TINTED_STATUSBAR_TRANSPARENT);
+        mTintedStatusbarTransparency = (SeekBarPreferenceCHOS) findPreference(TINTED_STATUSBAR_TRANSPARENT);
         mTintedStatusbarTransparency.setValue(Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_TINTED_STATBAR_TRANSPARENT, 100));
         mTintedStatusbarTransparency.setEnabled(tintedStatusbar != 0);
         mTintedStatusbarTransparency.setOnPreferenceChangeListener(this);
 
         mTintedStatusbarOption = (ListPreference) findPreference(TINTED_STATUSBAR_OPTION);
-        mTintedNavbarTransparency = (NEWSeekBarPreference) findPreference(TINTED_NAVBAR_TRANSPARENT);
+        mTintedNavbarTransparency = (SeekBarPreferenceCHOS) findPreference(TINTED_NAVBAR_TRANSPARENT);
     }
     
     @Override
