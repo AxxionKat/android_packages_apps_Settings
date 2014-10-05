@@ -24,7 +24,6 @@ import com.android.settings.R;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
-import android.net.TrafficStats;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.SystemProperties;
@@ -38,9 +37,8 @@ import android.preference.PreferenceCategory;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 
-import com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
-import com.android.settings.axxion.NEWSeekBarPreference
-import com.android.internal.util.omni.DeviceUtils;
+import com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference;
+import com.android.settings.axxion.NEWSeekBarPreference;
 import com.android.settings.Utils;
 
 public class TintedSysbarSettings extends SettingsPreferenceFragment implements
@@ -56,16 +54,14 @@ public class TintedSysbarSettings extends SettingsPreferenceFragment implements
 
     private ListPreference mTintedStatusbar;
     private ListPreference mTintedStatusbarOption;
-    private SystemCheckBoxPreference mTintedStatusbarFilter;
-    private SeekBarPreference mTintedStatusbarTransparency;
-    private SeekBarPreference mTintedNavbarTransparency;
+    private SystemSettingCheckBoxPreference mTintedStatusbarFilter;
+    private NEWSeekBarPreference mTintedStatusbarTransparency;
+    private NEWSeekBarPreference mTintedNavbarTransparency;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.tinted_sysbar_settings);
-
-        loadResources();
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
@@ -80,17 +76,17 @@ public class TintedSysbarSettings extends SettingsPreferenceFragment implements
         mTintedStatusbar.setSummary(mTintedStatusbar.getEntry());
         mTintedStatusbar.setOnPreferenceChangeListener(this);
 
-        mTintedStatusbarFilter = (SystemCheckBoxPreference) findPreference(TINTED_STATUSBAR_FILTER);
+        mTintedStatusbarFilter = (SystemSettingCheckBoxPreference) findPreference(TINTED_STATUSBAR_FILTER);
         mTintedStatusbarFilter.setEnabled(tintedStatusbar != 0);
 
-        mTintedStatusbarTransparency = (SeekBarPreference) findPreference(TINTED_STATUSBAR_TRANSPARENT);
+        mTintedStatusbarTransparency = (NEWSeekBarPreference) findPreference(TINTED_STATUSBAR_TRANSPARENT);
         mTintedStatusbarTransparency.setValue(Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_TINTED_STATBAR_TRANSPARENT, 100));
         mTintedStatusbarTransparency.setEnabled(tintedStatusbar != 0);
         mTintedStatusbarTransparency.setOnPreferenceChangeListener(this);
 
         mTintedStatusbarOption = (ListPreference) findPreference(TINTED_STATUSBAR_OPTION);
-        mTintedNavbarTransparency = (SeekBarPreference) findPreference(TINTED_NAVBAR_TRANSPARENT);
+        mTintedNavbarTransparency = (NEWSeekBarPreference) findPreference(TINTED_NAVBAR_TRANSPARENT);
     }
     
     @Override
