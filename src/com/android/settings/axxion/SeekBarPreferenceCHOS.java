@@ -1,4 +1,4 @@
-package com.android.settings.axxion.SeekBarPreferenceCHOS;
+package com.android.settings.axxion;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -33,12 +33,12 @@ public class SeekBarPreferenceCHOS extends Preference implements OnSeekBarChange
     private TextView mTitle;
     private TextView mStatusText;
 
-    public SeekBarPreference(Context context, AttributeSet attrs) {
+    public SeekBarPreferenceCHOS(Context context, AttributeSet attrs) {
         super(context, attrs);
         initPreference(context, attrs);
     }
 
-    public SeekBarPreference(Context context, AttributeSet attrs, int defStyle) {
+    public SeekBarPreferenceCHOS(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initPreference(context, attrs);
     }
