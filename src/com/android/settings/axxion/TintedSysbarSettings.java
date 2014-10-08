@@ -87,6 +87,19 @@ public class TintedSysbarSettings extends SettingsPreferenceFragment implements
 
         mTintedStatusbarOption = (ListPreference) findPreference(TINTED_STATUSBAR_OPTION);
         mTintedNavbarTransparency = (SeekBarPreferenceCHOS) findPreference(TINTED_NAVBAR_TRANSPARENT);
+
+         int tintedStatusbarOption = Settings.System.getInt(resolver,
+                    Settings.System.STATUS_BAR_TINTED_OPTION, 0);
+            mTintedStatusbarOption.setValue(String.valueOf(tintedStatusbarOption));
+            mTintedStatusbarOption.setSummary(mTintedStatusbarOption.getEntry());
+            mTintedStatusbarOption.setEnabled(tintedStatusbar != 0);
+            mTintedStatusbarOption.setOnPreferenceChangeListener(this);  
+
+            mTintedNavbarTransparency.setValue(Settings.System.getInt(resolver,
+                    Settings.System.STATUS_BAR_TINTED_NAVBAR_TRANSPARENT, 100));
+            mTintedNavbarTransparency.setEnabled(tintedStatusbar != 0);
+            mTintedNavbarTransparency.setOnPreferenceChangeListener(this);
+              
     }
     
     @Override
