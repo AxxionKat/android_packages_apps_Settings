@@ -50,7 +50,7 @@
             android:title="@string/tinted_statusbar_transparent_title"
             android:max="100"
             settings:min="0"
-            settings:interval="10"
+            settings:interval="5"
             settings:unitsLeft=""
             settings:unitsRight="%" />
 
@@ -60,7 +60,7 @@
             android:title="@string/tinted_navbar_transparent_title"
             android:max="100"
             settings:min="0"
-            settings:interval="10"
+            settings:interval="5"
             settings:unitsLeft=""
             settings:unitsRight="%" />
 
