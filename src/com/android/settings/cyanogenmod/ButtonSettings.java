@@ -64,6 +64,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final int ACTION_IN_APP_SEARCH = 5;
     private static final int ACTION_LAUNCH_CAMERA = 6;
     private static final int ACTION_LAST_APP = 7;
+    private static final int ACTION_SLEEP = 8;
 
     // Masks for checking presence of hardware keys.
     // Must match values in frameworks/base/core/res/res/values/config.xml
@@ -298,7 +299,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
         return false;
     }
-    
+
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mSwapVolumeButtons) {
