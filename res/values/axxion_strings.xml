@@ -420,4 +420,8 @@
     <string name="reboot_ok">Reboot now</string>
     <string name="reboot_cancel">Don\'t reboot</string>
     
+   	<!-- Axxionkat Anonymous Stats -->
+    <string name="rominfo_settings_list_item_title">AxxionKat Statistics</string>
+    <string name="rominfo_settings_list_item_summary">Help make AxxionKat better by opting into anonymous statistics reporting</string>
+    
 </resources>
