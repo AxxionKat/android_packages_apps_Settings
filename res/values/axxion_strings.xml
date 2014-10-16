@@ -424,5 +424,4 @@
     <string name="rominfo_settings_list_item_title">AxxionKat Statistics</string>
     <string name="rominfo_settings_list_item_summary">Help make AxxionKat better by opting into anonymous statistics reporting</string>
     <string name="changelog_title_summary">Here you can see the changes of the new version</string>
-
 </resources>

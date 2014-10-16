@@ -686,9 +686,7 @@ public class Settings extends PreferenceActivity
     }
 
     private void updateHeaderList(List<Header> target) {
-        final boolean showDev = mDevelopmentPreferences.getBoolean(
-                DevelopmentSettings.PREF_SHOW,
-                android.os.Build.TYPE.equals("eng"));
+        final boolean showDev = true;
         int i = 0;
 
         final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
@@ -766,7 +764,6 @@ public class Settings extends PreferenceActivity
                     }
                 }
             } else if (id == R.id.development_settings
-                    || id == R.id.performance_settings) {
                 if (!showDev) {
                     target.remove(i);
                 }
@@ -778,6 +775,16 @@ public class Settings extends PreferenceActivity
                 if (!DevelopmentSettings.isRootForAppsEnabled()) {
                     target.remove(i);
                 }
+            } else if (id == R.id.kernel_tweaker) {
+                // Embedding into Settings only if app exists (user could manually remove it)
+                boolean supported = false;
+                try {
+                    supported = (getPackageManager().getPackageInfo("com.dsht.kerneltweaker", 0).versionCode >= 18);
+                } catch (PackageManager.NameNotFoundException e) {
+                }
+                if (!supported) {
+                    target.remove(i);
+                }                   
             } else if (id == R.id.multi_sim_settings) {
                 if (!MSimTelephonyManager.getDefault().isMultiSimEnabled())
                     target.remove(header);
