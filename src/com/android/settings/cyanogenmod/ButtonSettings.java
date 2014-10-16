@@ -273,10 +273,6 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                     Settings.System.VOLUME_KEY_CURSOR_CONTROL, 0);
             mVolumeKeyCursorControl = initActionList(KEY_VOLUME_KEY_CURSOR_CONTROL,
                     cursorControlAction);
-
-            if (!res.getBoolean(R.bool.config_show_volumeRockerWake)) {
-                volumeCategory.removePreference(findPreference(Settings.System.VOLUME_WAKE_SCREEN));
-            }
         } else {
             prefScreen.removePreference(volumeCategory);
         }

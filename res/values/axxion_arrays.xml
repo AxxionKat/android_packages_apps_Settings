@@ -426,6 +426,28 @@
         <item>10</item>
     </string-array>
     
+    <string-array name="mode_network_entries" translatable="false">
+        <item>@string/mode_network_never</item>
+        <item>@string/mode_network_1m</item>
+        <item>@string/mode_network_5m</item>
+        <item>@string/mode_network_15m</item>
+        <item>@string/mode_network_30m</item>
+        <item>@string/mode_network_1h</item>
+        <item>@string/mode_network_2h</item>
+        <item>@string/mode_network_5h</item>
+    </string-array>
+
+    <string-array name="mode_network_values" translatable="false">
+        <item>0</item>
+        <item>60000</item>
+        <item>300000</item>
+        <item>900000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>7200000</item>
+        <item>18000000</item>
+    </string-array>    
+    
     <!-- PEEK pickup timeout -->
     <string-array name="peek_pickup_timeout_values" translatable="false">
         <item>10000</item>
