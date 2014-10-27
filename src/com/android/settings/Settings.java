@@ -493,8 +493,8 @@ public class Settings extends PreferenceActivity
         com.android.settings.quicksettings.QuickSettingsTiles.class.getName(),
         com.android.settings.cyanogenmod.QuietHours.class.getName(),
         ThemeSettings.class.getName(),
+     	BatteryIconStyle.class.getName(),    
         com.android.settings.wifi.WifiApSettings.class.getName()
-    	BatteryIconStyle.class.getName()
     };
 
     @Override
