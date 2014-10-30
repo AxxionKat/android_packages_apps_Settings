@@ -9,22 +9,6 @@
             android:selectable="false" />
 
     <PreferenceCategory
-        android:title="@string/ad_settings_title" >
-     
-        <CheckBoxPreference
-            android:key="active_display_checkbox"
-            android:title="@string/ad_checkbox"
-            android:summary="@string/ad_checkbox_summary" />
-                    
-    <PreferenceScreen
-        android:key="@+id/active_display"
-        android:fragment="com.android.settings.axxion.ActiveDisplaySettings"
-        android:title="@string/ad_settings_title" 
-        android:dependency="active_display_checkbox" />
-        
-    </PreferenceCategory>
-    
-    <PreferenceCategory
         android:title="@string/lockscreen_notifications" >
      
         <CheckBoxPreference

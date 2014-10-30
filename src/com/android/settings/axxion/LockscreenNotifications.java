@@ -2,18 +2,22 @@ package com.android.settings.axxion;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.UserHandle;
-import android.os.UserManager;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.SeekBarPreference;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -21,16 +25,20 @@ import android.view.WindowManager;
 
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
-import com.android.settings.axxion.NumberPickerPreference;
 import com.android.settings.axxion.AppMultiSelectListPreference;
+import com.android.settings.axxion.NumberPickerPreference;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
 public class LockscreenNotifications extends SettingsPreferenceFragment implements Preference.OnPreferenceChangeListener {
 
-    private static final String KEY_AD = "active_display_checkbox";
+    private static final String KEY_PEEK = "notification_peek";
+    private static final String KEY_PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
+    private static final String KEY_PEEK_WAKE_TIMEOUT = "peek_wake_timeout";
     private static final String KEY_LOCKSCREEN_NOTIFICATIONS = "lockscreen_notifications";
     private static final String KEY_POCKET_MODE = "pocket_mode";
     private static final String KEY_SHOW_ALWAYS = "show_always";
@@ -47,7 +55,6 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private static final String KEY_CATEGORY_GENERAL = "category_general";
     private static final String KEY_EXCLUDED_APPS = "excluded_apps";
 
-    private CheckBoxPreference mActiveDisplayCheckbox;
     private CheckBoxPreference mLockscreenNotifications;
     private CheckBoxPreference mPocketMode;
     private CheckBoxPreference mShowAlways;
@@ -63,6 +70,23 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private SeekBarPreference mOffsetTop;
     private AppMultiSelectListPreference mExcludedAppsPref;
 
+    private PackageStatusReceiver mPackageStatusReceiver;
+    private IntentFilter mIntentFilter;
+
+    private boolean isPeekAppInstalled() {
+        return isPackageInstalled(PEEK_APPLICATION);
+    }
+
+    private boolean isPackageInstalled(String packagename) {
+        PackageManager pm = getActivity().getPackageManager();
+        try {
+            pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (NameNotFoundException e) {
+           return false;
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +95,22 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         PreferenceScreen prefs = getPreferenceScreen();
         final ContentResolver cr = getActivity().getContentResolver();
 
-        mActiveDisplayCheckbox = (CheckBoxPreference) findPreference(KEY_AD);
-        mActiveDisplayCheckbox.setPersistent(false);
+        mNotificationPeek = (CheckBoxPreference) findPreference(KEY_PEEK);
+        mNotificationPeek.setPersistent(false);
+
+        mPeekPickupTimeout = (ListPreference) prefs.findPreference(KEY_PEEK_PICKUP_TIMEOUT);
+        int peekPickupTimeout = Settings.System.getIntForUser(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, 10000, UserHandle.USER_CURRENT);
+        mPeekPickupTimeout.setValue(String.valueOf(peekPickupTimeout));
+        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntry());
+        mPeekPickupTimeout.setOnPreferenceChangeListener(this);
+
+        mPeekWakeTimeout = (ListPreference) prefs.findPreference(KEY_PEEK_WAKE_TIMEOUT);
+        int peekWakeTimeout = Settings.System.getIntForUser(getContentResolver(),
+                Settings.System.PEEK_WAKE_TIMEOUT, 5000, UserHandle.USER_CURRENT);
+        mPeekWakeTimeout.setValue(String.valueOf(peekWakeTimeout));
+        mPeekWakeTimeout.setSummary(mPeekWakeTimeout.getEntry());
+        mPeekWakeTimeout.setOnPreferenceChangeListener(this);
 
         mLockscreenNotifications = (CheckBoxPreference) prefs.findPreference(KEY_LOCKSCREEN_NOTIFICATIONS);
         mLockscreenNotifications.setChecked(Settings.System.getInt(cr,
@@ -159,33 +197,42 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             general.removePreference(mPocketMode);
             general.removePreference(mShowAlways);
         }
+
+        if (mPackageStatusReceiver == null) {
+            mPackageStatusReceiver = new PackageStatusReceiver();
+        }
+        if (mIntentFilter == null) {
+            mIntentFilter = new IntentFilter();
+            mIntentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+            mIntentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        }
+        getActivity().registerReceiver(mPackageStatusReceiver, mIntentFilter);
+
+        updateNotificationOptions();
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().registerReceiver(mPackageStatusReceiver, mIntentFilter);
         updateState();
     }
 
-    private void updateState() {
-        updateActiveDisplayCheckbox();
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(mPackageStatusReceiver);
     }
 
-    private void updateActiveDisplayCheckbox() {
-        boolean enabled = Settings.System.getInt(getContentResolver(),
-                Settings.System.AD_STATE, 0) == 1;
-        mActiveDisplayCheckbox.setChecked(enabled);    
-    }
-    
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         ContentResolver cr = getActivity().getContentResolver();
-        if (preference == mActiveDisplayCheckbox) {
-            Settings.System.putInt(cr, Settings.System.AD_STATE,
-                    mActiveDisplayCheckbox.isChecked() ? 1 : 0);
+        if (preference == mNotificationPeek) {
+            Settings.System.putInt(cr, Settings.System.PEEK_STATE,
+                    mNotificationPeek.isChecked() ? 1 : 0);
             updateNotificationOptions();
         } else if (preference == mLockscreenNotifications) {
-	            Settings.System.putInt(cr, Settings.System.LOCKSCREEN_NOTIFICATIONS,
+            Settings.System.putInt(cr, Settings.System.LOCKSCREEN_NOTIFICATIONS,
                     mLockscreenNotifications.isChecked() ? 1 : 0);
             if (mDisableHeadsup != null) {
                 mWakeOnNotification.setEnabled(mLockscreenNotifications.isChecked());
@@ -202,7 +249,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             mForceExpandedView.setEnabled(mLockscreenNotifications.isChecked() && mExpandedView.isChecked()
                         && !mPrivacyMode.isChecked());
             mExpandedView.setEnabled(mLockscreenNotifications.isChecked() && !mPrivacyMode.isChecked());
-            updateNotificationOptions();            
+            updateNotificationOptions();
         } else if (preference == mPocketMode) {
             Settings.System.putInt(cr, Settings.System.LOCKSCREEN_NOTIFICATIONS_POCKET_MODE,
                     mPocketMode.isChecked() ? 1 : 0);
@@ -260,6 +307,22 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             int max = Math.round((float)displaySize.y * (1f - (mOffsetTop.getProgress() / 100f)) /
                     (float)mContext.getResources().getDimensionPixelSize(R.dimen.notification_row_min_height));
             mNotificationsHeight.setMaxValue(max);
+        } else if (pref == mPeekPickupTimeout) {
+            int index = mPeekPickupTimeout.findIndexOfValue((String) value);
+            int peekPickupTimeout = Integer.valueOf((String) value);
+            Settings.System.putIntForUser(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT,
+                    peekPickupTimeout, UserHandle.USER_CURRENT);
+            mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntries()[index]);
+            return true;
+        } else if (pref == mPeekWakeTimeout) {
+            int index = mPeekWakeTimeout.findIndexOfValue((String) value);
+            int peekWakeTimeout = Integer.valueOf((String) value);
+            Settings.System.putIntForUser(getContentResolver(),
+                Settings.System.PEEK_WAKE_TIMEOUT,
+                    peekWakeTimeout, UserHandle.USER_CURRENT);
+            mPeekWakeTimeout.setSummary(mPeekWakeTimeout.getEntries()[index]);
+            return true;
         } else if (pref == mExcludedAppsPref) {
             storeExcludedApps((Set<String>) value);
             return true;
@@ -289,15 +352,15 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         Settings.System.putString(getContentResolver(),
                 Settings.System.LOCKSCREEN_NOTIFICATIONS_EXCLUDED_APPS, builder.toString());
     }
-    
-    // Auto disable LN if AD is enabled
+
+    // Auto disable LN if PEEK is enabled
     private void updateNotificationOptions() {
-        boolean adState = Settings.System.getBoolean(getActivity().getContentResolver(),
-               Settings.System.AD_STATE, false);
+        boolean peekState = Settings.System.getBoolean(getActivity().getContentResolver(),
+               Settings.System.PEEK_STATE, false);
         boolean lockNotif = Settings.System.getBoolean(getActivity().getContentResolver(),
                Settings.System.LOCKSCREEN_NOTIFICATIONS, false);
 
-        if (adState) {
+        if (peekState) {
             mLockscreenNotifications.setEnabled(false);
             mLockscreenNotifications.setChecked(false);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -305,13 +368,25 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         } else {
             mLockscreenNotifications.setEnabled(true);
             if (lockNotif) {
-                mActiveDisplayCheckbox.setEnabled(false);
+                mNotificationPeek.setEnabled(false);
                 // Ensure that PEEK is disable
                 Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.AD_STATE, 0);
+                    Settings.System.PEEK_STATE, 0);
             } else {
-                mActiveDisplayCheckbox.setEnabled(true);
+                mNotificationPeek.setEnabled(true);
             }
         }
-    }    
+    }
+
+    public class PackageStatusReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {
+                updatePeekCheckbox();
+            } else if(action.equals(Intent.ACTION_PACKAGE_REMOVED)) {
+                updatePeekCheckbox();
+            }
+        }
+    }
 }
